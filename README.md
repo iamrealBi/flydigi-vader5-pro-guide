@@ -1,56 +1,31 @@
-<div class="site-hero">
-  <h1>Flydigi Vader 5 Pro Guide</h1>
-  <p>Hướng dẫn tiếng Việt dựa trên UI thật: Space Station, reWASD, gyro, macro, layer, trigger, troubleshooting và migrate profile.</p>
-</div>
+# Giới thiệu
 
-![Flydigi Space Station đang nhận VADER 5 Pro](images/01-device-home.png)
+Đây là tài liệu cộng đồng bằng tiếng Việt dành cho **Flydigi VADER 5 Pro**, tập trung vào cách dùng thực tế của Flydigi Space Station và cách phối hợp với reWASD khi cần.
 
-## Điểm khác của bản guide này
+## Nên bắt đầu ở đâu?
 
-- **Ảnh UI thật** chụp trực tiếp từ VADER 5 Pro đang kết nối.
-- Giữ tên tiếng Anh để bạn tìm đúng menu, nhưng giải thích bằng tiếng Việt dễ hiểu.
-- Không dịch máy móc: ví dụ Pulse được giải thích là “tap target rất ngắn”, không chỉ gọi là “xung”.
-- Phân biệt rõ tính năng **đã thấy trên UI** với capability **chỉ có trong code**.
-- Có guide riêng để migrate Best.rewasd của Elden Ring.
+- [Hướng dẫn sử dụng Space Station](guide.md): đi từ Device Home tới Button Mapping, Layer, Stick, Trigger, Gyro, Vibration, Lighting, Macro, Settings và Firmware.
+- [Từ điển thuật ngữ](glossary.md): giải thích Pulse, Toggle, Dead Zone, Curve, Travel, Haptic, Virtual Controller... theo hành vi thực tế.
+- [Migrate Best.rewasd](migration.md): tái tạo phần gameplay cốt lõi của profile Elden Ring.
+- [Troubleshooting](troubleshooting.md): xử lý double input, gyro drift, layer, macro, profile và xung đột với Steam Input/reWASD.
+- [Flydigi vs reWASD](comparison.md): hiểu mỗi phần mềm mạnh ở đâu.
 
-### Ký hiệu
+## Cách tài liệu này được kiểm chứng
 
-- **✅ Đã xác minh trên UI thật**
-- **🧪 Có trong code/capability nhưng chưa thấy trên UI hiện tại**
-- **⚠️ Phụ thuộc firmware / Engine / model / mode kết nối**
+Ảnh trong guide được chụp trực tiếp từ UI Flydigi Space Station khi VADER 5 Pro đang kết nối.
 
-<div class="site-grid">
-  <a class="site-card" href="#/guide"><b>🎮 Space Station từ A → Z</b><span>Mỗi mục đều có vị trí menu, ý nghĩa, ví dụ và ảnh thật.</span></a>
-  <a class="site-card" href="#/glossary"><b>📖 Từ điển thuật ngữ</b><span>Pulse, Toggle, Dead Zone, Curve, Travel, Haptic… giải thích theo hành vi thực tế.</span></a>
-  <a class="site-card" href="#/comparison"><b>⚖️ Flydigi vs reWASD</b><span>So capability và cách tránh chồng nhiều lớp remap.</span></a>
-  <a class="site-card" href="#/migration"><b>🔁 Migrate Best.rewasd</b><span>Chuyển gameplay core Elden Ring sang Space Station theo mức xác minh.</span></a>
-  <a class="site-card" href="#/troubleshooting"><b>🧰 Troubleshooting</b><span>Double input, mixed input, gyro drift, layer, macro, trigger và profile.</span></a>
-</div>
+Ký hiệu dùng trong tài liệu:
 
-## Bắt đầu ở đâu?
+- **✅ Đã xác minh trên UI thật**: đã thấy trực tiếp trên thiết bị/UI đang kiểm tra.
+- **🧪 Có trong code/capability nhưng chưa thấy trên UI hiện tại**: không nên coi là tính năng chắc chắn có trên máy bạn.
+- **⚠️ Phụ thuộc điều kiện**: có thể thay đổi theo firmware, Engine, model hoặc chế độ kết nối.
 
-Nếu mới dùng:
-1. đọc [Từ điển thuật ngữ](glossary.md) khi gặp từ lạ;
-2. làm theo [Hướng dẫn Space Station](guide.md);
-3. nếu đang dùng reWASD, đọc [So sánh](comparison.md);
-4. nếu muốn chuyển profile Elden Ring, mở [Migration](migration.md);
-5. lỗi ở đâu tra [Troubleshooting](troubleshooting.md).
+## Môi trường đã dùng để kiểm tra
 
-## Một đính chính quan trọng so với bản đầu
-
-Bản đầu từng trình bày **Trigger Haptics** như một phần chắc chắn có trong tab Trigger.
-
-Sau khi kiểm tra lại UI thật:
-- code Space Station có chuỗi Pistol/Rifle/Shotgun/Sword và Trigger Haptics;
-- nhưng UI Trigger của VADER 5 Pro đang kiểm tra **không expose các lựa chọn đó**.
-
-Guide mới đã sửa thành trạng thái **🧪 code-only / chưa thấy trên UI hiện tại**.
-
-## Phiên bản kiểm tra
-
-- VADER 5 Pro firmware: **7.2.2.1**
-- Space Station hiển thị: **V5.0.1.1**
+- Controller: **VADER 5 Pro**
+- Firmware hiển thị: **7.2.2.1**
+- Space Station hiển thị ở Device Home: **V5.0.1.1**
 - reWASD đối chiếu: **9.5.0**
-- rà soát: **21/09/2026**
+- Ngày rà soát UI: **21/09/2026**
 
-> Đây là tài liệu cộng đồng, không phải tài liệu chính thức của Flydigi hoặc reWASD.
+> Đây không phải tài liệu chính thức của Flydigi hoặc reWASD.

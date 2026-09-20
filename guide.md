@@ -1,30 +1,22 @@
-# Flydigi Space Station + VADER 5 Pro — hướng dẫn đầy đủ bằng tiếng Việt
+# Hướng dẫn sử dụng Flydigi Space Station cho VADER 5 Pro
 
-> Bản này ưu tiên người Việt mới dùng: giữ tên tiếng Anh đúng như UI để bạn tìm được nút, nhưng luôn giải thích bằng hành vi thực tế.
+> Giữ nguyên tên tiếng Anh đúng như trên UI để bạn tìm được nút, nhưng mọi thuật ngữ đều được giải thích theo hành vi thực tế. Gặp từ khó như Pulse, Dead Zone, Toggle, Travel... có thể mở [Từ điển thuật ngữ](glossary.md).
 
-## Trạng thái của bộ tài liệu
+## Bắt đầu nhanh
 
-- Controller kiểm tra: **VADER 5 Pro**.
-- Firmware hiển thị khi chụp: **7.2.2.1**.
-- Space Station hiển thị ở Device Home: **V5.0.1.1**.
-- Ngày rà soát UI: **21/09/2026**.
-- Ảnh trong guide là ảnh chụp trực tiếp từ UI thật, không phải mockup.
+Nếu bạn vừa mở Space Station lần đầu, làm theo thứ tự này:
 
-### Ký hiệu
+1. chọn **VADER 5 Pro** ở Device Home;
+2. bấm **Open device settings**;
+3. chọn đúng **Profile 1–4** mà bạn muốn chỉnh;
+4. dùng **Basic** nếu chỉ cần chỉnh đơn giản, hoặc **Advanced** nếu muốn Layer/Macro/Curve;
+5. chỉnh từng nhóm theo guide bên dưới và test trước khi mở game.
 
-- **✅ Đã xác minh**: có trên UI thật của Vader 5 Pro đang kiểm tra.
-- **🧪 Code-only / chưa expose**: có dấu vết trong code hoặc chuỗi giao diện nhưng chưa thấy trên UI thật.
-- **⚠️ Phụ thuộc điều kiện**: có thể tùy firmware, Engine, mode kết nối hoặc model.
-
-Nếu gặp thuật ngữ khó hiểu, mở [Từ điển thuật ngữ](glossary.md).
-
----
+![Device Home — chọn VADER 5 Pro rồi bấm Open device settings](images/01-device-home.png)
 
 ## 1. Device Home — bắt đầu từ đâu?
 
 **Đường đi:** mở Flydigi Space Station → chọn **VADER 5 Pro** → **Open device settings**.
-
-![Device Home thật](images/01-device-home.png)
 
 Ở đây bạn kiểm tra được:
 - controller có được nhận hay không;
