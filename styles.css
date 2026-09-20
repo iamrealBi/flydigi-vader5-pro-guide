@@ -1,0 +1,48 @@
+:root {
+  --accent:#7c5cff; --accent2:#27c4a8; --bg:#f6f7fb; --panel:#ffffff;
+  --text:#182033; --muted:#697386; --line:#e3e7ef; --code:#111827;
+}
+:root[data-theme="dark"] {
+  --bg:#0b1020; --panel:#111827; --text:#e8edf7; --muted:#9ba7ba;
+  --line:#263247; --code:#070b14; --accent:#9b87ff; --accent2:#3dd6ba;
+}
+html,body{background:var(--bg);color:var(--text)}
+body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
+body:before{
+  content:"";position:fixed;inset:0 0 auto 0;height:320px;pointer-events:none;z-index:-1;
+  background:radial-gradient(circle at 18% 0,rgba(124,92,255,.15),transparent 35rem),
+             radial-gradient(circle at 85% 0,rgba(39,196,168,.12),transparent 30rem)
+}
+.sidebar{background:color-mix(in srgb,var(--panel) 92%,transparent);border-right:1px solid var(--line)}
+.sidebar-nav>ul>li>a{font-weight:700;color:var(--text)}
+.sidebar ul li a{color:var(--muted);transition:.18s ease}
+.sidebar ul li a:hover,.sidebar ul li.active>a{color:var(--accent)}
+.search{border-bottom:1px solid var(--line)!important}
+.search input{background:var(--bg)!important;color:var(--text)!important;border:1px solid var(--line)!important;border-radius:10px!important}
+.content{padding-top:28px}
+.markdown-section{max-width:980px;color:var(--text)}
+.markdown-section h1{font-size:clamp(2rem,4vw,3.25rem);letter-spacing:-.045em;line-height:1.05}
+.markdown-section h2{margin-top:2.3em;padding-bottom:.35em;border-bottom:1px solid var(--line)}
+.markdown-section h3{color:var(--accent)}
+.markdown-section p,.markdown-section li{line-height:1.75}
+.markdown-section strong{color:var(--text)}
+.markdown-section a{color:var(--accent);font-weight:650}
+.markdown-section code{background:color-mix(in srgb,var(--accent) 10%,var(--panel));color:var(--text);border-radius:6px;padding:.12em .38em}
+.markdown-section pre{background:var(--code)!important;border:1px solid var(--line);border-radius:14px;box-shadow:0 12px 30px rgba(0,0,0,.08)}
+.markdown-section table{display:table;width:100%;overflow:hidden;border:1px solid var(--line);border-radius:12px;border-collapse:separate;border-spacing:0}
+.markdown-section th{background:color-mix(in srgb,var(--accent) 9%,var(--panel));color:var(--text);font-weight:750}
+.markdown-section td,.markdown-section th{border:0;border-bottom:1px solid var(--line);padding:.75rem .8rem}
+.markdown-section tr:last-child td{border-bottom:0}
+.markdown-section blockquote{border-left:4px solid var(--accent2);background:color-mix(in srgb,var(--accent2) 7%,var(--panel));border-radius:0 10px 10px 0;color:var(--muted)}
+.theme-toggle{position:fixed;right:18px;top:14px;z-index:99;width:40px;height:40px;border:1px solid var(--line);border-radius:12px;background:var(--panel);color:var(--text);cursor:pointer;box-shadow:0 8px 25px rgba(0,0,0,.12);font-size:20px}
+.app-name-link{color:var(--text)!important;font-weight:850!important;letter-spacing:-.02em}
+.github-corner svg{fill:var(--accent)!important;color:var(--panel)!important}
+.pagination-item-title{color:var(--text)!important}
+.pagination-item-label{color:var(--muted)!important}
+.site-hero{padding:28px;border:1px solid var(--line);border-radius:22px;background:linear-gradient(135deg,color-mix(in srgb,var(--accent) 14%,var(--panel)),color-mix(in srgb,var(--accent2) 8%,var(--panel)));margin:0 0 28px}
+.site-hero h1{margin:0 0 10px!important}.site-hero p{margin:0;color:var(--muted)}
+.site-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:20px 0 30px}
+.site-card{display:block!important;padding:18px;border:1px solid var(--line);border-radius:16px;background:var(--panel);text-decoration:none!important;box-shadow:0 8px 26px rgba(0,0,0,.045)}
+.site-card:hover{transform:translateY(-2px);border-color:var(--accent)}
+.site-card b{display:block;color:var(--text);font-size:1.05rem;margin-bottom:4px}.site-card span{color:var(--muted);font-size:.92rem}
+@media(max-width:768px){.site-grid{grid-template-columns:1fr}.markdown-section{padding:18px 20px 60px}.theme-toggle{right:10px;top:10px}.markdown-section table{display:block;overflow-x:auto}}
