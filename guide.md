@@ -1,503 +1,758 @@
-# Flydigi Space Station - Vader 5 Pro Complete Guide
+# Flydigi Space Station + VADER 5 Pro — hướng dẫn đầy đủ bằng tiếng Việt
 
-## 1. Cấu trúc tổng thể
-Space Station hiện tách cấu hình thành bốn lớp khái niệm:
-1. On-board Profile: cấu hình thực sự được ghi xuống tay cầm.
-2. Local Profile Library: cấu hình lưu cục bộ để chỉnh sửa/copy/import/export.
-3. Main Layer + Shift Layers: ngữ cảnh mapping trong mỗi profile.
-4. Global Settings: thiết lập áp dụng cho toàn bộ profile.
+> Bản này ưu tiên người Việt mới dùng: giữ tên tiếng Anh đúng như UI để bạn tìm được nút, nhưng luôn giải thích bằng hành vi thực tế.
 
-Vader 5 Pro hiện có 4 on-board profile.
-Có thể bật Quick Profile Switching để dùng FN + A/B/X/Y chuyển nhanh profile 1/2/3/4.
+## Trạng thái của bộ tài liệu
 
-Local Profile Library cho phép:
-- New Profile.
-- Copy.
-- Edit.
-- Rename.
-- Export backup.
-- Import backup.
-- Restore/replace.
-- Apply to Controller.
+- Controller kiểm tra: **VADER 5 Pro**.
+- Firmware hiển thị khi chụp: **7.2.2.1**.
+- Space Station hiển thị ở Device Home: **V5.0.1.1**.
+- Ngày rà soát UI: **21/09/2026**.
+- Ảnh trong guide là ảnh chụp trực tiếp từ UI thật, không phải mockup.
 
-Lưu ý quan trọng:
-- Local editing tự lưu vào máy nhưng chưa ghi xuống controller.
-- Chỉ khi chọn Apply to Controller thì profile mới ghi vào on-board slot.
-- Trước khi overwrite, Space Station có cơ chế backup profile on-board hiện tại.
+### Ký hiệu
 
-## 2. Basic và Advanced
-Basic phù hợp khi cần:
-- Remap nút đơn giản.
-- Preset stick/trigger.
-- Gyro cơ bản.
-- Vibration và lighting.
+- **✅ Đã xác minh**: có trên UI thật của Vader 5 Pro đang kiểm tra.
+- **🧪 Code-only / chưa expose**: có dấu vết trong code hoặc chuỗi giao diện nhưng chưa thấy trên UI thật.
+- **⚠️ Phụ thuộc điều kiện**: có thể tùy firmware, Engine, mode kết nối hoặc model.
 
-Advanced mở thêm:
-- Nhiều activator trên cùng một nút.
-- Shift layer.
-- Macro target.
-- Turbo target.
-- Simulate analog/mouse/vibration.
-- Custom response curve.
-- Stick zone mapping.
-- Trigger travel zones.
-- Advanced gyro curve.
+Nếu gặp thuật ngữ khó hiểu, mở [Từ điển thuật ngữ](glossary.md).
 
-Nếu đã quen reWASD, nên dùng Advanced làm giao diện chính.
+---
 
-## 3. Layer
-Mỗi profile có:
-- Main Layer.
-- Tối đa 3 Shift Layer.
+## 1. Device Home — bắt đầu từ đâu?
 
-Mỗi Shift Layer có thể lưu riêng:
-- Button mappings.
-- Stick zones.
-- Trigger zones.
-- Macros.
+**Đường đi:** mở Flydigi Space Station → chọn **VADER 5 Pro** → **Open device settings**.
 
-Layer có thể Reset hoặc Delete độc lập.
-Khi reset layer, các mapping/zone/macro trong layer đó bị xóa.
+![Device Home thật](images/01-device-home.png)
 
-### Chuyển layer
-Target Layer hỗ trợ:
-- Hold: giữ nút để ở Shift Layer; thả ra quay về layer trước.
-- Toggle: nhấn một lần để vào, nhấn lần nữa để quay lại.
+Ở đây bạn kiểm tra được:
+- controller có được nhận hay không;
+- pin/trạng thái kết nối;
+- nút mở phần cấu hình thiết bị;
+- phiên bản Space Station ở cuối giao diện.
 
-Không phải activator nào cũng cho phép layer switch.
-Space Station cảnh báo:
-- Pulse trigger không dùng để chuyển layer.
-- Một số kiểu Toggle activator xung đột với Toggle layer switch.
-- Với layer tạm thời, Direct hoặc Long Press là lựa chọn an toàn.
-- Với chuyển layer duy trì, Single/Double Press + Toggle layer là phù hợp.
+Nếu chưa thấy VADER 5 Pro:
+1. kiểm tra cáp/dongle;
+2. thử bấm một nút trên controller;
+3. reload Space Station;
+4. chỉ khi device đã hiện mới tiếp tục cấu hình.
 
-## 4. Button Mapping - Advanced
-Chọn một nút vật lý ở hình controller rồi thêm Trigger Action.
+---
 
-Các activator:
-- Direct: active trong lúc giữ nút.
-- Single Press: kích hoạt sau một lần nhấn ngắn và nhả.
-- Double Press: hai lần nhấn trong cửa sổ thời gian.
-- Long Press: giữ đủ lâu mới kích hoạt.
-- Press Pulse: phát một xung ngắn khi nhấn.
-- Release Pulse: phát một xung ngắn khi nhả.
-- Toggle: nhấn lần đầu bật, nhấn lần sau tắt.
+## 2. Bản đồ màn hình cấu hình chính
 
-Một nút có thể có nhiều Trigger Action cùng lúc.
+Sau khi mở VADER 5 Pro, màn hình chính có ba vùng lớn:
 
-### Target của mapping
-Space Station hiện expose các target:
-- Controller.
-- Keyboard.
-- Mouse.
-- Media.
-- Turbo.
-- Layer.
-- Macro.
-- Simulate.
-- Disable.
+1. **trên cùng**: Basic / Advanced và Main Layer;
+2. **giữa**: các tab Button Mapping, Stick, Trigger, Motion Control, Vibration, Lighting, Manage Macros;
+3. **bên trái**: Manage, Profile 1–4 và Settings.
 
-Controller target gồm:
-- LT/LB/RT/RB.
-- A/B/X/Y.
-- D-pad.
-- LS/RS.
-- Các input controller tương thích khác.
+![Tổng quan màn hình cấu hình thật](images/02-button-mapping-overview.png)
 
-Keyboard target dùng để gán phím Windows/game trực tiếp.
-Mouse target gồm:
-- Left/Right/Middle.
-- Side button Back/Forward.
-- Các mouse action được hỗ trợ bởi mapping UI.
+Đây là ảnh quan trọng nhất để định vị mọi phần còn lại.
+## 3. Profile: Local và On-board khác nhau thế nào?
 
-Media target gồm:
-- Play/Pause.
-- Next/Previous Track.
-- Stop.
-- Volume +/-.
-- Mute.
-- Sleep/Wake.
+### On-board Profile
 
-Disable dùng để vô hiệu hóa native action của nút.
+On-board = profile thực sự nằm trong controller.
 
-### Turbo
-Turbo phát target lặp lại theo interval.
-Một số trigger type không hỗ trợ Turbo.
-UI khuyến nghị Direct, Long Press hoặc Toggle khi dùng Turbo.
+Vader 5 Pro hiện hiển thị 4 slot:
+- Profile 1;
+- Profile 2;
+- Profile 3;
+- Profile 4.
 
-#
+Khi đổi on-board profile, mapping của tay cầm đổi theo slot đó.
 
-## Simulate
-Simulate có thể tạo:
-- Left/Right Stick deflection.
-- Linear LT/RT.
-- Mouse movement.
-- Mouse wheel.
-- Vibration output.
+### Local Profile Library
 
-Đây là tính năng mạnh khi cần analog output mà không muốn viết macro nhiều bước.
+Bấm **Manage** để mở thư viện profile local.
 
-## 5. Stick - Basic
-Mỗi stick có thể chỉnh riêng Left/Right.
+![Profile Library thật](images/17-profile-manage.png)
 
-Controller Emulation có các preset:
-- Standard.
-- Smooth.
-- Fast.
-- Dynamic.
-- Gentle.
+UI hiện xác nhận:
+- **Local Profiles 0/20**;
+- New Profile;
+- Export backup;
+- Import backup;
+- controller chỉ được cập nhật khi profile được Apply xuống on-board.
 
-Ý nghĩa thực dụng:
-- Standard: cân bằng.
-- Smooth: mềm ở vùng center, hợp aim/chạy xe chính xác.
-- Fast: tăng phản hồi sớm, hợp FPS/platform.
-- Dynamic: center chính xác nhưng mid-range nhanh.
-- Gentle: giảm saturation gắt gần full tilt.Stick Basic còn có:
-- Center Dead Zone.
-- Boundary: Circle hoặc Rectangle.
-- Invert Horizontal X.
-- Invert Vertical Y.
-- Outer-ring Mapping.
+Điểm dễ nhầm nhất:
 
-Outer-ring Mapping:
-- Gán action khi stick đi vào vùng ngoài.
-- Có thể chỉnh độ rộng outer ring.
-- Phù hợp Sprint, Run, modifier hoặc action khi đẩy stick hết biên.
+> **Lưu/chỉnh profile local không có nghĩa controller đã nhận thay đổi.**
 
-Ngoài Controller Emulation, UI còn có Keyboard WASD mode cho game cũ không hỗ trợ analog stick.
+Quy trình an toàn:
+1. chỉnh local profile;
+2. kiểm tra lại;
+3. backup nếu cần;
+4. Apply vào đúng on-board slot;
+5. test lại controller.
 
-## 6. Stick - Advanced
-Advanced Stick có ba khối:
-1. Response Curve.
-2. Zone Mapping.
-3. Stick Settings.
+---
 
-Response Curve:
-- Linear mặc định.
-- Tối đa 2 midpoint trong UI hiện tại của Vader 5 Pro.
-- Có Add Point, Remove Point, Reset Line.
-- Dùng để kiểm soát gain từ center tới full tilt.
+## 4. Basic và Advanced — nên chọn cái nào?
 
-Stick Settings:
-- Boundary Rectangle/Circle.
-- Invert X/Y.
-- Các thuộc tính tương ứng của stick hiện tại.
+### Basic
 
-### Zone Mapping
-Các Direction Mode:
-- 8-way.
-- 4-way.
-- 4-way Overlap.
+Dùng khi:
+- chỉ cần preset;
+- mapping đơn giản;
+- không cần nhiều layer/macro/zone;
+- muốn cấu hình dễ hiểu.
 
-Có thể tạo nhiều segment theo hướng và radial range.
-Mỗi segment có target riêng.
+### Advanced
 
-Ứng dụng:
-- Stick ngoài 80% = Sprint.
-- Hướng chéo = macro riêng.
-- Low radius = đi bộ, high radius = chạy.
-- 4-way overlap = cho phép hai hướng cạnh nhau cùng kích hoạt ở biên.
+Dùng khi:
+- muốn nhiều kiểu kích hoạt trên một nút;
+- dùng Shift Layer;
+- dùng macro;
+- chỉnh curve/zone;
+- muốn tái tạo profile reWASD phức tạp.
 
-## 7. Trigger - Basic
-Chọn Both Triggers, LT hoặc RT.
+Với bộ guide này, **Advanced** là chế độ chính.
 
-Regular Response presets:
-- Linear.
-- FPS Instant.
-- Rapid Response.
+---
 
-Linear:
-- Toàn bộ hành trình cho output tuyến tính.
+## 5. Layer — “một nút có thể thành bộ nút khác”
 
-FPS Instant:
-- Rút ngắn hành trình đầu để đạt firing nhanh.
+**Đường đi:** phía trên màn hình → bấm **Main Layer**.
 
-Rapid Response:
-- Đạt output tối đa sớm hơn preset Linear.
+![Menu Layer thật](images/03-layer-menu.png)
 
-## 8. Trigger - Advanced
-Advanced Trigger cho:
-- Custom response curve.
-- Effective Travel.
-- Output Range.
-- Response Start.
-- Full Output point.
-- Tối đa 2 midpoint.
-- Ba Travel Zones.
+Vader 5 Pro hiện cho:
+- Main Layer;
+- tối đa 3 Shift Layer.
 
-Travel Zones:
-- Light Press.
-- Medium Press.
-- Heavy Press.
-
-Zone target chạy thêm trong khi analog LT/RT curve vẫn tiếp tục output.
-Điều này khác remap trigger thành nút digital: analog vẫn còn.
+Hiểu đơn giản:
+- Main Layer = trạng thái bình thường;
+- Shift Layer = một bộ mapping phụ.
 
 Ví dụ:
-- Light = Aim.
-- Medium = Fire.
-- Heavy = Macro hoặc action thứ ba.
+- bình thường A = A;
+- giữ M2 để vào Shift Layer 1;
+- lúc đó A = D-pad Down;
+- thả M2 → A trở lại A.
 
-Khi thay đổi input range, ba zone sẽ scale tương ứng.
+### Hold và Toggle trong Layer
 
-## 9. Trigger Haptics
-Space Station có trigger haptic scene riêng:
-- Pistol, Rifle, Shotgun, Sniper Rifle.
-- Machine Gun, Light Machine Gun, Submachine Gun.
-- Sword, Blade, Dagger, Axe, Club.Trigger haptic có thể chỉnh:
-- Trigger Travel: Short/Medium/Long.
-- Trigger Frequency: Low/Medium/High.
-- Trigger Force.
-- Activation Mode: Once/Loop tùy scene.
+**Hold**:
+- giữ nút → vào layer;
+- thả → quay về.
 
-Xung đột cần nhớ:
-- Trigger haptics và Trigger-Bound Grip Feedback không thể active đồng thời.
-- Bật một bên có thể yêu cầu tắt bên kia.
+**Toggle**:
+- bấm lần 1 → vào layer;
+- bấm lần 2 → quay về.
 
-## 10. Motion Control / Gyro
-Target mode:
-- Off.
-- Left Stick.
-- Right Stick.
+Nếu chỉ muốn “nút modifier”, ưu tiên Hold.
+## 6. Button Mapping — phần quan trọng nhất
+
+**Đường đi:** tab **Button Mapping** → chọn nút trên hình controller.
+
+![Button Mapping với M4 thật](images/04-button-mapping-m4.png)
+
+Trong ảnh, M4 đang có mapping kiểu Direct → LS.
+
+### Source và Target
+
+- **Source** = nút vật lý bạn đang bấm, ví dụ M4.
+- **Target** = thứ game/Windows sẽ nhận, ví dụ LS.
+
+Space Station expose nhiều loại target như:
+- Controller;
+- Keyboard;
+- Mouse;
+- Media;
+- Turbo;
+- Layer;
+- Macro;
+- Simulate;
+- Disable.
+
+![Khu vực loại Target](images/18-mapping-target-types.png)
+
+### Các kiểu kích hoạt
+
+Bấm **Add Trigger** để thấy các kiểu activator.
+
+![Danh sách Activator thật](images/05-button-activators.png)
+
+#### Direct
+
+Giữ source bao lâu → giữ target bấy lâu.
+
+Ví dụ M4 → LS:
+- giữ M4 = LS đang bị nhấn;
+- thả M4 = LS nhả.
+
+#### Single Press
+
+Chỉ chạy sau một cú bấm ngắn và nhả.
+
+Có thể hơi trễ hơn Direct vì hệ thống còn phải phân biệt Double Press.
+
+#### Double Press
+
+Bấm hai lần đủ nhanh mới chạy.
+
+#### Long Press
+
+Phải giữ đủ lâu mới chạy.
+
+#### Press Pulse — đừng hiểu đơn giản là “xung”
+
+Ý nghĩa thực tế:
+
+> vừa ấn source xuống → target được bấm + nhả rất nhanh đúng một lần.
+
+Giữ source lâu hơn không làm target bị giữ.
+
+#### Release Pulse
+
+Target chỉ được bấm + nhả rất nhanh **lúc bạn thả source**.
+
+#### Toggle
+
+Bấm lần 1 để bật trạng thái, lần 2 để tắt.
+
+Xem giải thích sâu hơn tại [Từ điển thuật ngữ](glossary.md).
+### Khi nào dùng loại nào?
+
+| Mục tiêu | Kiểu phù hợp |
+|---|---|
+| Đổi M4 thành LS bình thường | Direct |
+| Giữ M2 để vào Shift Layer | Direct/Hold |
+| Bấm M3 bật gyro, lần sau tắt | Toggle |
+| Bấm nhanh một lần để gửi phím | Single Press hoặc Press Pulse |
+| Chỉ chạy khi thả nút | Release Pulse |
+| Một nút có action phụ khi giữ lâu | Long Press |
+
+### Disable
+
+Disable làm source không còn phát native action ở mapping đó.
+
+Dùng cẩn thận vì có thể khiến nút “biến mất” nếu bạn quên đã disable.
+
+### Simulate
+
+Simulate dùng để tạo đầu ra không chỉ là button:
+- độ lệch stick;
+- trigger analog;
+- mouse movement;
+- mouse wheel;
+- vibration.
+
+---
+
+## 7. Stick — chỉnh cảm giác analog
+
+**Đường đi:** tab **Stick**.
+
+### Stick Basic
+
+![Stick Basic thật](images/06-stick-basic.png)
+
+Các thành phần quan trọng:
+- preset response;
+- Center Dead Zone;
+- Boundary;
+- Invert X/Y;
+- Outer-ring Mapping;
+- tùy mode có Controller Emulation hoặc Keyboard WASD.
+
+### Center Dead Zone
+
+Hiểu là:
+> vùng nhỏ quanh tâm stick được coi như bằng 0.
+
+Tăng khi:
+- stick drift;
+- tâm rung.
+
+Không tăng quá cao vì sẽ làm mất micro-movement.
+
+### Boundary
+
+**Circle**:
+- biên tròn;
+- tự nhiên hơn.
+
+**Rectangle**:
+- dễ đạt output lớn ở góc chéo.
+
+### Preset
+
+- Standard: cân bằng;
+- Smooth: mềm vùng đầu;
+- Fast: phản hồi sớm;
+- Dynamic: vùng đầu chính xác, vùng sau nhanh;
+- Gentle: dịu hơn gần biên.
+
+Tên preset chỉ là điểm bắt đầu. Hãy test trong game.
+
+### Outer-ring Mapping
+
+Khi stick đi tới vùng ngoài cùng, có thể phát thêm action.
+
+Ví dụ:
+- đẩy LS > 90% → Sprint.
+## 8. Stick Advanced — Curve và Zone
+
+![Stick Advanced thật](images/07-stick-advanced.png)
+
+### Response Curve
+
+Curve quyết định:
+- input bao nhiêu;
+- output bao nhiêu.
+
+Không phải chỉ là “sensitivity”.
+
+Ví dụ:
+- đầu curve nhẹ → aim nhỏ mịn hơn;
+- cuối curve dốc → full turn vẫn nhanh.
+
+UI hiện cho tối đa 2 midpoint.
+
+### Zone Mapping
+
+Bạn có thể chia stick theo:
+- hướng;
+- bán kính;
+- segment.
+
+Direction Mode:
+- 8-way;
+- 4-way;
+- 4-way Overlap.
+
+Ví dụ thực tế:
+- 0–70% = đi;
+- >80% = Sprint;
+- hướng chéo = action riêng.
+
+---
+
+## 9. Trigger Basic — cò LT/RT
+
+**Đường đi:** tab **Trigger** → Basic.
+
+![Trigger Basic thật](images/08-trigger-basic.png)
+
+UI thật hiện có các kiểu regular response như:
+- Linear;
+- FPS Instant;
+- Rapid Response.
+
+### Linear
+
+Bóp từ ít tới nhiều → output tăng đều.
+
+Đây là preset baseline tốt nhất để bắt đầu.
+
+### FPS Instant
+
+Giảm hành trình cần thiết trước khi cò phản hồi mạnh.
+
+Dùng cho shooter khi ưu tiên bắn nhanh hơn kiểm soát analog.
+
+### Rapid Response
+
+Đạt output cao sớm hơn Linear nhưng vẫn giữ cảm giác có dải bóp.
+
+---
+
+## 10. Trigger Advanced — curve và 3 vùng bóp
+
+![Trigger Advanced thật](images/09-trigger-advanced.png)
+
+UI Advanced hiện cho:
+- Effective Travel;
+- Output Range;
+- Response Curve;
+- tối đa 2 midpoint;
+- 3 Travel Zones.
+
+### Effective Travel
+
+Đây là phần hành trình vật lý thực sự được dùng.
+
+Ví dụ đặt 0–60%:
+- không cần bóp tới hết cò vật lý;
+- vùng 0–60% được dùng làm dải input chính.
+
+### Output Range
+
+Bạn có thể scale dải input vật lý thành dải output khác.
+
+### Travel Zones
+
+Ba vùng:
+- Light Press;
+- Medium Press;
+- Heavy Press.
+
+Mỗi vùng có thể phát action phụ, trong khi LT/RT analog vẫn tiếp tục output.
+## 11. Trigger Haptics — vì sao bạn không thấy menu?
+
+Đây là chỗ bản guide cũ gây hiểu nhầm.
+
+### Kết quả kiểm tra UI thật
+
+**🧪 Trên VADER 5 Pro đang kiểm tra, tab Trigger không hiện:**
+- Trigger Mode;
+- Pistol;
+- Rifle;
+- Shotgun;
+- Sniper;
+- Sword;
+- Trigger Travel / Frequency / Force theo kiểu haptic scene.
+
+Tuy nhiên trong code/chuỗi giao diện Space Station có các tên trên.
+
+Kết luận đúng hơn:
+
+> Trigger Haptics là capability tồn tại trong code của Space Station nhưng **không được UI Vader 5 Pro hiện tại expose như một menu sử dụng được**.
+
+Do đó nếu bạn tìm mãi không thấy:
+- không phải bạn tìm sai;
+- không nên cố làm theo phần này như một bước bắt buộc.
+
+### Đừng nhầm với Trigger-Bound Grip Feedback
+
+Trigger-Bound Grip Feedback nằm ở **Vibration** và là rung grip liên quan tới LT/RT.
+
+Nó **không phải** lực cản/cảm giác cơ học ở trigger.
+
+---
+
+## 12. Motion Control / Gyro
+
+**Đường đi:** tab **Motion Control**.
+
+### Basic
+
+![Motion Control Basic thật](images/10-motion-basic.png)
+
+Mode có thể gồm:
+- Off;
+- Left Stick;
+- Right Stick;
 - Mouse.
 
 Activation:
-- Hold.
+- Hold;
 - Toggle.
 
-Có tối đa 2 Activation Buttons:
-- Primary.
-- Secondary.
+Có thể có Primary và Secondary activation button.
 
-Basic Mouse gyro:
-- Sensitivity.
-- Mouse Dead Zone.
-- Invert X.
+### Mouse gyro
+
+Các thông số chính:
+- Sensitivity;
+- Mouse Dead Zone;
+- Invert X;
 - Invert Y.
 
-Advanced gyro thêm:
-- Response Curve.
-- Tối đa 2 midpoint trong UI hiện tại.
+Best.rewasd của profile Elden Ring đang cần:
+- Mouse;
+- Toggle;
+- M3 làm activation;
+- Invert Y ON;
+- Invert X OFF.
 
-### Tune gyro thực tế
-Không đổi sensitivity từ reWASD sang Space Station theo tỷ lệ 1:1.
-Hai app dùng scale khác nhau.
+Không copy sensitivity 1:1 từ reWASD sang Space Station.
+### Motion Advanced
 
-Quy trình tune:
-1. Chọn Mouse.
-2. Deadzone 0-2% nếu gyro ổn định.
-3. Curve Linear trước.
-4. Tắt acceleration trong game nếu có.
-5. Chọn một điểm cố định trong game.
-6. Xoay controller theo góc quen thuộc.
-7. Tăng/giảm sensitivity tới khi tốc độ aim tự nhiên.
-8. Chỉ thêm midpoint khi cần fine aim + fast turn khác nhau.
+![Motion Control Advanced thật](images/11-motion-advanced.png)
 
-Nếu camera đi ngược theo chiều dọc:
-- bật Invert Vertical Y.
-Nếu ngang ngược:
-- bật Invert Horizontal X.
+Advanced thêm Response Curve.
 
-## 11. Vibration
-Có ba nhánh chính:
-- Native Grip Vibration.
-- Left Trigger-Bound Grip Feedback.
-- Right Trigger-Bound Grip Feedback.
+Quy trình tune gyro nên làm:
+1. để curve Linear;
+2. Dead Zone 0%;
+3. đặt controller yên và xem có drift không;
+4. nếu drift, tăng 1% rồi 2%;
+5. chỉnh Sensitivity trước;
+6. chỉ chỉnh curve sau khi tốc độ cơ bản đã hợp.
 
-Mỗi nhánh có On/Off và Strength.
-Có Test Vibration để kiểm tra trực tiếp.
+Nếu fine aim tốt nhưng quay nhanh quá chậm:
+- tăng gain ở vùng cuối curve.
 
-## 12. X-Haptics
-Space Station hiện có lớp X-Haptics cần local Engine.
+Nếu quay nhanh ổn nhưng micro-aim giật:
+- giảm gain ở vùng đầu.
 
-Các mode được expose:
-- Real-time Audio Haptics.
-- Adaptive Trigger.
-- UDP Haptics.
+---
 
-Real-time Audio:
-- Biến âm thanh thành haptic.
-- Có grip/trigger channel.
-- Strength.
-- Style.
-- Grip attenuation khi trigger đang nhấn.
-- Auto sleep và thời gian chờ.
+## 13. Vibration — rung tay cầm
 
-Adaptive Trigger:
-- Sustained trigger resistance.
-- Cấu hình strength.
-- Có cài/gỡ cấu hình theo scope.
+**Đường đi:** tab **Vibration**.
 
-UDP Haptics:
-- Dùng telemetry game, phù hợp racing/sim.
-- Có preset Standard và Custom.
-- Custom expose strength/sensitivity/curve khi Engine descriptor hỗ trợ.
+![Vibration thật](images/12-vibration.png)
 
-Có Global profile và per-game profile.
-Per-game profile ưu tiên global khi game đang chạy.
+UI hiện có:
+- Native Grip Vibration;
+- Left Trigger-Bound Grip Feedback;
+- Right Trigger-Bound Grip Feedback;
+- Strength;
+- Test Vibration.
 
-## 13. Lighting
-Modes:
-- Default.
-- Streaming.
-- Breathing.
-- Gradient.
-- Solid.
+### Native Grip Vibration
+
+Rung bình thường ở phần tay nắm.
+
+### Trigger-Bound Grip Feedback
+
+Bóp LT/RT → phần grip có rung phản hồi liên quan.
+
+Tên dễ gây hiểu nhầm, nhưng:
+- đây không phải adaptive trigger;
+- không tự tạo lực cản ở cò.
+
+### X-Haptics priority
+
+UI có câu nhắc rằng khi X-Haptics được bật, effect của X-Haptics có thể ưu tiên hơn setting rung gốc.
+
+---
+
+## 14. Lighting — đèn RGB
+
+**Đường đi:** tab **Lighting**.
+
+![Lighting thật](images/13-lighting.png)
+
+Các mode được UI expose:
+- Default;
+- Streaming;
+- Breathing;
+- Gradient;
+- Solid;
 - Off.
 
-Gradient/Breathing cho phép nhiều màu.
-Có:
-- Color picker RGB.
-- Saturation.
-- Brightness.
-- Cycle Speed.
-- Add/Remove color.
+Tùy mode có:
+- màu;
+- saturation;
+- brightness;
+- cycle speed.
 
-## 14. Macro
-Macro được lưu riêng theo từng layer.
-Giới hạn xác nhận được từ UI:
-- Tối đa 10 macro mỗi layer.
-- Tổng timeline của một macro không vượt 65,535 ms.
+Lighting chỉ ảnh hưởng hiển thị/đèn, không ảnh hưởng mapping.
+## 15. Macro — nhiều thao tác trong một nút
 
-Macro action có thể được:
-- Add thủ công.
-- Record từ controller.
-- Reorder bằng drag.
-- Chỉnh delay từng action.
+**Đường đi:** **Manage Macros**.
 
-Action type:
-- Press.
-- Release.
-- Push analog direction.
-- Center/recenter.Macro target có thể gồm:
-- Controller buttons.
-- Stick directions.
-- Linear trigger values.
-- Keyboard.
-- Mouse.
-- Media.
-- Turbo.
-- Layer operation.
+![Danh sách Macro thật](images/14-manage-macros.png)
 
-Trigger Mode:
-- Key Combination (Hold).
-- Run Once (Until Complete).
-- Loop (Stop on Release).
+Macro được quản lý theo layer.
+
+UI/code hiện giới hạn:
+- tối đa 10 macro mỗi layer;
+- timeline tối đa 65,535 ms.
+
+### Macro Editor
+
+![Macro Editor thật](images/19-macro-editor.png)
+
+Bạn có thể:
+- thêm action;
+- record;
+- chỉnh delay;
+- chọn Trigger Mode.
+
+Action phổ biến:
+- Press;
+- Release;
+- Push;
+- Center.
+
+### Trigger Mode
+
+![Khu vực Trigger Mode của Macro](images/20-macro-trigger-modes.png)
+
+Các mode được Space Station expose:
+- Key Combination (Hold);
+- Run Once (Until Complete);
+- Loop (Stop on Release);
 - Loop (Finish Current Cycle).
 
-Key Combination (Hold):
-- Press các target theo thứ tự.
-- Giữ chúng trong lúc trigger đang giữ.
-- Release toàn bộ khi thả trigger.
+Hiểu nhanh:
+- Key Combination = giữ nhiều target cùng lúc;
+- Run Once = chạy một lần hết sequence;
+- Loop Stop = thả là cắt ngay;
+- Loop Finish = thả nhưng chạy hết vòng đang dở.
 
-Run Once:
-- Chạm một lần để chạy hết sequence.
-- Không ngắt giữa sequence.
+Đọc giải thích chi tiết tại [Từ điển thuật ngữ](glossary.md).
 
-Loop Stop on Release:
-- Lặp liên tục.
-- Thả nút thì dừng ngay, kể cả giữa cycle.
+---
 
-Loop Finish Current Cycle:
-- Lặp khi giữ.
-- Thả nút thì hoàn thành cycle hiện tại rồi mới dừng.Macro editor kiểm tra consistency:
-- Press/Push phải có Release/Center tương ứng nếu sequence yêu cầu.
-- Không cho release trước press.
-- Không cho cùng target start lại khi chưa kết thúc.
-- Không cho timestamp đi ngược.
-- Delay phải là số nguyên không âm.
+## 16. Settings — thiết lập toàn controller
 
-Macro có thể Copy to Other Layers.
-Bản copy độc lập với macro nguồn sau khi copy.
-Share-code import/export hiện được đánh dấu coming soon.
+**Đường đi:** cột trái → **Settings**.
 
-## 15. Global Settings
-Controller Settings:
-- Quick Profile Switching.
-- Turbo Button Features.
-- Map Logo to XBOX Button.
-- Allow Third-party Control.
-- Controller Sleep.
+![Settings thật](images/15-settings.png)
 
-Quick Profile Switching:
-- FN + A/B/X/Y đổi profile 1/2/3/4.
+### Quick Profile Switching
 
-Turbo Button Features:
-- Cho phép Turbo key set rapid fire.
-- Cho phép set extension buttons theo flow trực tiếp trên controller.
+Cho phép dùng tổ hợp trên controller để chuyển nhanh Profile 1–4.
 
-Third-party Control:
-- Khi bật, Space Station tạm dừng thao tác profile nếu app khác đang takeover controller.Controller Sleep:
-- 1 minute.
-- 5 minutes.
-- 15 minutes.
-- 1 hour.
-- 3 hours.
-- Never.
+UI mô tả FN + A/B/X/Y tương ứng các slot.
 
-Global Stick Settings:
-- Automatic Stick Calibration.
-- Stick Precision: 8/9/10/11/12 bit.
-- Precision áp dụng cho tất cả profiles.
+### Turbo Button Features
 
-Standalone Actions:
-- Factory Reset.
-- Electronic Manual.
+Cho phép dùng Turbo để cấu hình rapid fire và một số chức năng extension button.
+
+### Map Logo to XBOX Button
+
+Khi bật:
+- nút Logo gửi XBOX button input cho Windows;
+- có thể dùng với Xbox Game Bar.
+
+### Allow Third-party Control
+
+Khi app khác takeover controller:
+- Space Station có thể pause thao tác cấu hình để tránh conflict.
+
+Nếu dùng reWASD, đây là setting quan trọng.
+
+### Controller Sleep
+
+Chọn thời gian không hoạt động trước khi controller sleep.
+### Automatic Stick Calibration
+
+Giúp controller tự hiệu chuẩn stick.
+
+Nếu drift:
+1. calibration trước;
+2. test tâm;
+3. chỉ tăng Dead Zone khi cần.
+
+### Stick Precision
+
+Các mức 8/9/10/11/12-bit là độ phân giải dữ liệu.
+
+Đừng mặc định chọn cao nhất sẽ luôn tốt nhất:
+- bit cao hơn có thể phản ánh cả nhiễu nhỏ;
+- game có thể không tận dụng hết.
+
+### Factory Reset
+
+Factory Reset có thể xóa:
+- device settings;
+- calibration;
+- pairing information.
+
+Chỉ dùng khi thực sự cần và đã backup.
+
+---
+
+## 17. Firmware
+
+Trong Settings, UI hiện:
+- VADER 5 Pro;
+- Firmware 7.2.2.1;
+- Component Firmware Versions;
 - Firmware Update.
 
-Factory Reset xóa:
-- Controller settings.
-- Calibration data.
-- Pairing information.
+![Component Firmware thật](images/16-firmware-components.png)
 
-Firmware page đọc:
-- Main firmware.
-- Receiver/RF/SI/screen components tùy thiết bị.
-- Có sequential firmware update và recovery flow.
+Khi expand Component Firmware Versions, UI hiện các component như:
+- SI Firmware;
+- RF Firmware;
+- và component khác tùy thiết bị.
 
-## 16. Quy trình tạo profile từ đầu
-1. Chọn một on-board slot chưa dùng.
-2. Backup profile hiện tại.
-3. Chọn Advanced.
-4. Tạo Shift Layer cần dùng.
-5. Cấu hình button mapping.
-6. Cấu hình Stick.
-7. Cấu hình Trigger.
-8. Cấu hình Motion Control.
-9. Tạo Macro.
-10. Kiểm tra Vibration/Haptics.11. Chọn Lighting.
-12. Test từng layer trước khi Apply.
-13. Apply profile xuống controller.
-14. Mở joy.cpl kiểm tra input native.
-15. Mở game và test từng nhóm chức năng.
+Không update firmware giữa lúc:
+- pin yếu;
+- kết nối chập chờn;
+- controller đang bị app khác takeover.
 
-## 17. Thứ tự tune tối ưu
-Đừng tune mọi thứ cùng lúc.
+---
 
-Thứ tự nên dùng:
-1. Button mapping.
-2. Stick deadzone.
-3. Stick curve.
-4. Trigger response.
-5. Gyro sensitivity/deadzone.
-6. Layer.
-7. Macro.
-8. Haptics.
+## 18. X-Haptics — trạng thái xác minh
 
-Lý do:
-- Nếu mapping cơ bản chưa ổn, macro/layer khó debug.
-- Nếu stick/gyro chưa ổn, bạn dễ nhầm lỗi input với lỗi macro.
-- Haptics nên làm cuối vì không ảnh hưởng logic control.
+Trong code Space Station có các chuỗi:
+- Real-time Audio Haptics;
+- Adaptive Trigger;
+- UDP/Telemetry Haptics;
+- X-Haptics Engine.
 
-## 18. Khi nào nên dùng Basic
-Dùng Basic nếu:
-- Chỉ muốn preset.
-- Không dùng macro/layer.
-- Muốn profile dễ bảo trì.
-- Cấu hình cho người khác sử dụng.
+**🧪 Nhưng màn hình cấu hình chính của Vader 5 Pro đã chụp không có tab X-Haptics riêng.**
 
-Dùng Advanced nếu:
-- Muốn tái tạo Best.rewasd.
-- Muốn nhiều action trên một nút.
-- Muốn zone/curve riêng.
-- Muốn macro hoặc layer.
+Vì vậy guide này:
+- không coi X-Haptics là bước bắt buộc;
+- không bảo bạn tìm một menu không xuất hiện;
+- chỉ ghi nhận nó là capability phụ thuộc Engine/model/firmware.
+
+---
+
+## 19. Quy trình cấu hình an toàn từ đầu
+
+1. Mở Device Home, xác nhận đúng VADER 5 Pro.
+2. Chọn đúng on-board profile.
+3. Backup trước khi thay đổi lớn.
+4. Chọn Advanced nếu dùng layer/macro.
+5. Làm Button Mapping trước.
+6. Test Main Layer.
+7. Tạo Shift Layer.
+8. Test layer.
+9. Chỉnh Stick Dead Zone.
+10. Chỉnh Stick Curve.
+11. Chỉnh Trigger.
+12. Chỉnh Gyro.
+13. Tạo Macro sau cùng.
+14. Chỉnh Vibration/Lighting.
+15. Apply xuống controller.
+16. Test joy.cpl.
+17. Sau đó mới mở game.
+## 20. Thứ tự debug khi có lỗi
+
+Nếu một nút sai:
+1. xem đang ở layer nào;
+2. xem source nào;
+3. xem activator gì;
+4. xem target gì;
+5. nếu target là Macro, mở macro;
+6. test joy.cpl;
+7. tắt reWASD;
+8. tắt Steam Input tạm thời;
+9. test lại.
+
+Nếu gyro sai:
+1. kiểm tra mode;
+2. activation Hold/Toggle;
+3. Invert X/Y;
+4. Dead Zone;
+5. Sensitivity;
+6. Curve.
+
+Nếu game bị bấm hai lần:
+- nghi ngờ double input trước khi nghi controller hỏng.
+
+---
+
+## 21. Bảng “có thật trên UI hay không?”
+
+| Tính năng | Trạng thái |
+|---|---|
+| 4 on-board profile | ✅ Đã thấy |
+| Main + Shift Layer | ✅ Đã thấy |
+| Direct / Single / Double / Long / Pulse / Toggle | ✅ Đã thấy |
+| Controller / Keyboard / Mouse / Media / Turbo / Macro... | ✅ Có capability trong UI |
+| Stick Basic + Advanced | ✅ Đã thấy |
+| Stick Curve / Zone | ✅ Đã thấy |
+| Trigger Linear / FPS Instant / Rapid Response | ✅ Đã thấy |
+| Trigger Curve + 3 Travel Zones | ✅ Đã thấy |
+| Gyro Mouse / Stick | ✅ Đã thấy |
+| Vibration / Trigger-Bound Grip Feedback | ✅ Đã thấy |
+| Lighting | ✅ Đã thấy |
+| Macro editor | ✅ Đã thấy |
+| Settings / calibration / precision / firmware | ✅ Đã thấy |
+| Trigger Haptics scene Pistol/Rifle/... | 🧪 Có trong code, chưa thấy trên UI Vader 5 Pro hiện tại |
+| X-Haptics tab | 🧪 Có trong code/Engine layer, chưa thấy trong UI cấu hình chính hiện tại |
+
+---
+
+## 22. Nên đọc tiếp gì?
+
+- [Từ điển thuật ngữ](glossary.md): giải thích từ khó theo hành vi thực tế.
+- [Flydigi vs reWASD](comparison.md): cái nào nên làm ở đâu.
+- [Migrate Best.rewasd](migration.md): tái tạo profile Elden Ring.
+- [Troubleshooting](troubleshooting.md): xử lý lỗi từng bước.

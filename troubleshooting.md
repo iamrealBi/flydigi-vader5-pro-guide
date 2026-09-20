@@ -1,369 +1,388 @@
-# Troubleshooting & Best Practices - Vader 5 Pro
+# Troubleshooting & Best Practices — VADER 5 Pro
 
-## 1. Nguyên tắc debug
-Mỗi lần chỉ kiểm tra một lớp:
-1. Controller hardware.
-2. Space Station on-board mapping.
-3. Windows/joy.cpl.
-4. reWASD nếu có.
-5. Steam Input.
-6. Game.
+## Nguyên tắc lớn nhất: tách từng lớp ra để test
 
-Nếu bật tất cả cùng lúc, rất khó biết lỗi nằm ở đâu.
+Pipeline có thể gồm:
+1. controller hardware;
+2. Space Station on-board mapping;
+3. Windows/XInput;
+4. reWASD;
+5. Steam Input;
+6. game.
 
-## 2. Double input
+Nếu bật tất cả cùng lúc, một lỗi nhỏ có thể nhìn giống lỗi controller.
+
+Nếu gặp từ như Double Input, Mixed Input, Dead Zone, Toggle hoặc Virtual Controller, xem [Từ điển thuật ngữ](glossary.md).
+
+---
+
+## 1. Bấm một lần nhưng game nhận hai lần — Double Input
+
 Triệu chứng:
 - menu nhảy hai ô;
-- một lần bấm thành hai lần;
-- game thấy hai controller;
-- Steam hiển thị native Vader và virtual Xbox cùng lúc.
+- bấm một lần thành hai;
+- hai controller xuất hiện;
+- input cảm giác “nhân đôi”.
 
 Nguyên nhân thường gặp:
-- Space Station đã remap;
-- reWASD lại tạo virtual controller;
-- physical controller chưa bị hide;
-- Steam Input tiếp tục remap.
+- Vader vật lý vẫn hoạt động;
+- reWASD tạo Virtual Xbox;
+- Steam Input lại tạo thêm lớp remap.
 
-Cách test sạch:
-1. Exit reWASD remap.
-2. Tắt Steam Input tạm thời cho game.
-3. Mở joy.cpl.
-4. Xác nhận chỉ controller mong muốn phản hồi.
-5. Test Space Station profile.
-6. Bật lại từng lớp một.
+### Cách test sạch
 
-## 3. Mixed keyboard/mouse + controller
-Space Station tự cảnh báo một số game không xử lý tốt mixed input.
+1. tắt reWASD remap;
+2. tắt Steam Input tạm thời;
+3. mở joy.cpl;
+4. xác nhận chỉ controller mong muốn phản hồi;
+5. test Space Station;
+6. bật lại từng lớp một.
+
+Đừng sửa mapping trước khi biết chắc lỗi không phải double input.
+
+---
+
+## 2. Prompt Xbox/keyboard đổi liên tục — Mixed Input
+
+Mixed Input = game nhận controller và keyboard/mouse cùng lúc.
+
+Ví dụ:
+- LS = controller;
+- gyro = Mouse.
 
 Triệu chứng:
-- prompt đổi Xbox <-> keyboard liên tục;
-- camera khựng khi gyro-to-mouse;
-- nút controller ngừng nhận khi keyboard mapping chạy;
-- UI flicker.
+- icon nút đổi Xbox ↔ keyboard;
+- camera khựng;
+- UI flicker;
+- một input tạm chặn input kia.
 
 Cách xử lý:
-- ưu tiên controller-only mapping nếu game hỗ trợ;
-- gyro -> Right Stick thay vì Mouse nếu mixed input gây lỗi;
-- hoặc map toàn bộ layout sang keyboard/mouse nếu game bắt buộc một input family;
-- test trong game trước khi kết luận profile lỗi.
+- thử gyro → Right Stick thay vì Mouse;
+- hoặc dùng controller-only;
+- hoặc map toàn bộ layout thành keyboard/mouse nếu game phù hợp.
+## 3. M1/M2/M3/M4 bị nhận sai trong reWASD
 
-Elden Ring thường nên test kỹ gyro-to-mouse cùng controller output.
+Đảm bảo reWASD là 9.5.0 hoặc mới hơn trong nhánh hiện tại.
 
-## 4. M1/M2/M3/M4 sai
-Nếu dùng reWASD:
-- đảm bảo đang ở reWASD 9.5.0;
-- 9.5 đã sửa lỗi M1/M2 và M3/M4 cho Vader 5 Pro/Apex 5.
+Release 9.5 chính thức sửa lỗi M1/M2 và M3/M4 trên Vader 5 Pro/Apex 5.
 
 Nếu dùng Space Station:
-- dùng Listen khi gán activation;
-- nhấn đúng nút vật lý;
-- kiểm tra label M1/M2/M3/M4 trên UI.
+- chọn đúng label vật lý;
+- dùng Listen khi gán activation nếu UI yêu cầu;
+- test từng M-button riêng.
 
-## 5. Layer không quay về Main
-Với Space Station:
-- nếu muốn layer chỉ active khi giữ, chọn Hold;
-- đừng chọn Toggle nếu mong release tự quay lại.
+![Button Mapping thật](images/02-button-mapping-overview.png)
 
-Best.rewasd của bạn:
-- M2 = Hold Shift 1.
-- M1 = Hold Shift 2.
+---
 
-Nếu thả M1/M2 mà vẫn ở Shift:
-- kiểm tra Activation Mode của Layer target.
+## 4. Layer không quay về Main
 
-## 6. Layer Toggle bị kẹt
-Toggle yêu cầu lần nhấn kế tiếp để quay lại.
-Nếu dùng trigger type không tương thích, Space Station sẽ chặn hoặc cảnh báo.
+Nếu muốn:
+- giữ M2 → Shift 1;
+- thả M2 → Main;
 
-Best practice:
-- Direct + Hold cho temporary modifier.
-- Single/Double + Toggle cho mode switch rõ ràng.
+thì layer phải dùng **Hold**, không phải Toggle.
 
-## 7. Macro không chạy
-Kiểm tra theo thứ tự:
-1. Macro có nằm đúng layer không?
-2. Mapping đang trỏ đúng Macro ID không?
-3. Trigger Mode có phù hợp không?
-4. Macro có vượt timeline 65,535 ms không?
-5. Action press/release có hợp lệ không?
-6. Game có chấp nhận input family của macro không?
+Toggle hoạt động như công tắc:
+- bấm lần 1 → vào;
+- bấm lần 2 → ra.
 
-Macro Space Station độc lập theo layer.
-Copy macro sang layer khác tạo bản copy độc lập.
+![Menu Layer](images/03-layer-menu.png)
 
-## 8. Combo Hold bị nhả sớm
-Với combo kiểu Best.rewasd:
-- A + LB;
-- A + RB;
-- A + D-pad.
+---
 
-Dùng Trigger Mode:
-- Key Combination (Hold).
+## 5. Không hiểu Press Pulse / Release Pulse
 
-Không dùng Run Once nếu muốn giữ combo tới khi thả source button.
+Press Pulse:
+- target được nhấn + nhả cực nhanh lúc source vừa được ấn xuống.
 
-## 9. Loop macro không dừng đúng
-Hai kiểu:
-- Loop Stop on Release: thả là cắt ngay.
-- Loop Finish Current Cycle: thả nhưng cycle hiện tại chạy xong.
+Release Pulse:
+- target được nhấn + nhả cực nhanh lúc source được thả.
 
-Chọn nhầm kiểu có thể làm bạn tưởng macro bị lag.
+Nó **không giữ target** theo thời gian source đang được giữ.
 
-## 10. Gyro drift
-Triệu chứng:
-- camera tự trôi khi đặt tay cầm yên.
+![Activator thật](images/05-button-activators.png)
 
-Cách xử lý:
-1. Đặt controller yên khi kết nối.
-2. Deadzone 0% để đo baseline.
-3. Nếu drift, tăng 1%.
-4. Nếu còn, tăng 2%.
-5. Không tăng quá cao nếu không cần.
+Nếu muốn target giữ theo source, dùng Direct.
 
-Deadzone quá lớn làm mất micro-aim.
+---
 
-## 11. Gyro quá nhanh/chậm
-Không copy sensitivity reWASD = 1 thành một % cố định.
-
-Tune:
-- Linear curve.
-- Deadzone thấp.
-- chỉnh sensitivity trước.
-- sau đó mới thêm midpoint.
-
-Nếu center aim tốt nhưng fast turn yếu:
-- tăng gain vùng motion cao bằng curve.
-
-Nếu fast turn tốt nhưng fine aim giật:
-- giảm gain đầu curve.
-
-## 12. Gyro đi ngược
-Best.rewasd của bạn cố ý:
-- up -> mouse down;
-- down -> mouse up.
-
-Do đó Space Station:
-- Invert Vertical Y = ON.
-- Invert Horizontal X = OFF.
-
-Nếu muốn cảm giác tự nhiên khác profile cũ:
-- có thể tắt Y inversion, nhưng đó không còn là migrate 1:1.
-
-## 13. Stick drift
-Test trong joy.cpl trước game.
-
-Space Station:
-- Center Dead Zone.
-- Automatic Stick Calibration.
-- Manual calibration flow.
-- Stick Precision 8-12 bit.
-
-Quy trình:
-1. Calibration.
-2. Test center.
-3. Deadzone nhỏ nhất đủ hết drift.
-4. Tune curve sau.
-
-Không dùng deadzone lớn để che lỗi calibration nếu controller có thể calibrate lại.
-
-## 14. Stick diagonal không đạt 100%
-Thử Boundary:
-- Rectangle nếu game cần full diagonal.
-- Circle nếu muốn analog tròn tự nhiên.
-
-Advanced Zone Mapping có thể tạo 4/8-way digital zones nếu game cần hướng rời rạc.
-
-## 15. Trigger bắn quá trễ
-Basic:
-- thử FPS Instant hoặc Rapid Response.
-
-Advanced:
-- giảm Effective Travel.
-- đưa Full Output point sớm hơn.
-- giữ Output Range phù hợp.
-
-Đừng đồng thời chỉnh quá nhiều tham số.
-Test từng thay đổi.
-
-## 16. Trigger action và analog cùng chạy
-Đây có thể là hành vi đúng.
-
-Travel Zone target:
-- chạy thêm action;
-- analog LT/RT curve vẫn output.
-
-Nếu bạn muốn trigger chỉ thành digital button:
-- thiết kế mapping khác;
-- hoặc disable/neutralize analog output theo capability phù hợp.
-
-## 17. Haptic conflict
-Trigger Haptics và Trigger-Bound Grip Feedback xung đột.
-
-Nếu bật Trigger Haptics:
-- Space Station có thể yêu cầu tắt Trigger-Bound Grip Feedback.
-
-Nếu bật Trigger-Bound Grip Feedback:
-- có thể phải tắt haptic scene.
-
-X-Haptics effect có priority khi enable.
-
-## 18. X-Haptics không mở
-X-Haptics cần local Engine.
+## 6. Macro không chạy
 
 Kiểm tra:
-- Engine đã cài.
-- Engine version tương thích.
-- Engine đang chạy.
-- Space Station đọc được capability.
-- assets X-Haptics đã tải.
+1. macro có nằm đúng layer không;
+2. mapping có trỏ đúng macro không;
+3. Trigger Mode đúng không;
+4. action Press/Release hợp lệ không;
+5. delay có hợp lý không;
+6. game có nhận đúng input family không.
 
-Nếu Engine unavailable:
-- hardware mapping cơ bản vẫn có thể dùng;
-- chỉ X-Haptics/feature phụ thuộc Engine bị ảnh hưởng.
+![Macro Editor](images/19-macro-editor.png)
 
-## 19. Profile không ghi xuống controller
+### Combo bị nhả sớm
+
+Nếu cần A + LB giữ cùng nhau:
+- dùng Key Combination (Hold);
+- không dùng Run Once.
+
+### Loop dừng sai thời điểm
+
+- Loop Stop on Release = thả là dừng ngay.
+- Loop Finish Current Cycle = thả nhưng chạy hết vòng đang dở.
+## 7. Gyro tự trôi
+
+Triệu chứng:
+- đặt controller yên;
+- camera vẫn tự dịch.
+
+Cách xử lý:
+1. để controller yên khi kết nối;
+2. Dead Zone 0% để quan sát baseline;
+3. nếu drift, tăng 1%;
+4. nếu còn, tăng 2%;
+5. đừng tăng quá cao nếu không cần.
+
+![Motion Control Basic](images/10-motion-basic.png)
+
+Dead Zone cao làm mất micro-aim.
+
+## 8. Gyro quá nhanh hoặc quá chậm
+
+Đừng copy sensitivity reWASD = 1 thành một % cố định.
+
+Quy trình:
+1. Linear curve;
+2. dead zone thấp;
+3. chỉnh sensitivity;
+4. sau đó mới chỉnh curve.
+
+![Motion Control Advanced](images/11-motion-advanced.png)
+
+Nếu:
+- fine aim tốt nhưng quay nhanh yếu → tăng gain cuối curve;
+- quay nhanh tốt nhưng micro-aim giật → giảm gain đầu curve.
+
+## 9. Gyro đi ngược
+
+Profile Best.rewasd nguồn:
+- up → mouse down;
+- down → mouse up.
+
+Muốn giữ đúng hành vi nguồn:
+- Invert Y = ON;
+- Invert X = OFF.
+
+---
+
+## 10. Stick Drift
+
+Test trước bằng joy.cpl.
+
+Quy trình:
+1. calibration;
+2. xem tâm;
+3. chỉ tăng Dead Zone vừa đủ;
+4. sau đó mới tune curve.
+
+![Stick Basic](images/06-stick-basic.png)
+
+Không dùng Dead Zone lớn để che một lỗi calibration có thể sửa.
+
+## 11. Diagonal không đạt như mong muốn
+
+Thử Boundary:
+- Circle = biên tròn;
+- Rectangle = dễ đạt output lớn ở góc chéo.
+
+![Stick Advanced](images/07-stick-advanced.png)
+## 12. Trigger bắn quá trễ
+
+Basic:
+- thử FPS Instant;
+- hoặc Rapid Response.
+
+![Trigger Basic](images/08-trigger-basic.png)
+
+Advanced:
+- giảm Effective Travel;
+- chỉnh Full Output/Output Range;
+- thay từng thông số một.
+
+![Trigger Advanced](images/09-trigger-advanced.png)
+
+## 13. Travel Zone chạy nhưng LT/RT vẫn analog
+
+Đây có thể là hành vi đúng.
+
+Travel Zone:
+- phát thêm action;
+- analog LT/RT vẫn tiếp tục output.
+
+Zone không đồng nghĩa “biến trigger thành nút digital”.
+
+## 14. Không thấy Trigger Haptics
+
+Đây **không phải lỗi của bạn**.
+
+Sau khi kiểm tra UI thật của Vader 5 Pro hiện tại:
+- không thấy Trigger Mode;
+- không thấy Pistol/Rifle/Shotgun/Sword;
+- không thấy scene haptic ở tab Trigger.
+
+Các chuỗi này tồn tại trong code Space Station nhưng chưa được UI hiện tại expose.
+
+Do đó đừng mất thời gian tìm một menu không có.
+
+## 15. Trigger-Bound Grip Feedback khác Trigger Haptics thế nào?
+
+Trigger-Bound Grip Feedback:
+- LT/RT điều khiển rung ở grip;
+- nằm trong Vibration.
+
+Trigger Haptics:
+- capability haptic ở trigger;
+- hiện chưa thấy UI usable trên Vader 5 Pro đang kiểm tra.
+
+![Vibration thật](images/12-vibration.png)
+
+## 16. Không thấy X-Haptics
+
+Code có X-Haptics Engine và các mode nâng cao, nhưng UI cấu hình chính hiện tại không có tab X-Haptics.
+
+Xem nó như capability phụ thuộc model/Engine, không phải phần bắt buộc của guide.
+## 17. Profile chỉnh rồi nhưng controller không đổi
+
 Phân biệt:
-- Local editing.
-- On-board profile.
+- Local Profile;
+- On-board Profile.
 
-Local changes không tự đồng nghĩa đã ghi xuống controller.
+Local thay đổi không tự động nghĩa là controller đã được ghi.
 
 Cần:
-1. Save local profile.
-2. Apply to Controller.
-3. Chọn đúng on-board slot.
-4. Chờ Configuration synced.
+1. chỉnh local;
+2. Apply to Controller;
+3. chọn đúng slot;
+4. chờ sync;
+5. test lại.
 
-Nếu apply fail:
-- reconnect controller;
-- refresh device information;
-- retry sync.
+![Profile Library thật](images/17-profile-manage.png)
 
-## 20. Profile bị ghi đè
-Trước khi apply:
-- Export backup.
-- đặt tên local profile rõ ràng.
-- kiểm tra slot.
+## 18. Profile bị ghi đè nhầm
 
-Naming khuyến nghị:
-- ER-Main.
-- ER-Gyro.
-- FPS.
-- Desktop.
-
-## 21. Quick Profile Switching
-Nếu bật:
-- FN + A/B/X/Y = slot 1/2/3/4.
-
-Nếu game nhận input lạ khi đổi:
-- thực hiện combo ngoài combat;
-- chờ profile switch hoàn tất;
-- test input trước khi tiếp tục.
-
-## 22. Third-party takeover
-Setting:
-- Allow Third-party Control.
-
-Khi third-party app takeover:
-- Space Station có thể pause on-board profile operations để tránh conflict.
-
-Nếu dùng reWASD song song:
-- hiểu rõ app nào đang sở hữu/remap input;
-- đừng chỉnh profile Flydigi cùng lúc với một app đang takeover nếu UI báo pause.
-
-## 23. Steam Input
-Nếu mapping hoạt động ngoài Steam nhưng sai trong game:
-- kiểm tra Steam Input.
-- test Disabled trước.
-- sau đó bật lại nếu game cần.
-
-Steam Input là một remap layer khác.
-Nó có thể:
-- đổi button;
-- tạo virtual behavior;
-- làm bạn tưởng Flydigi mapping sai.
-
-## 24. reWASD virtual controller
-Nếu dùng virtual controller:
-- tránh để physical + virtual cùng điều khiển một player nếu game không hỗ trợ.
-- tài liệu reWASD khuyến nghị hide physical gamepad trong nhiều virtual-output scenario.
-
-Nếu không cần virtual controller:
-- với Vader 5 Pro, ưu tiên native/on-board để đơn giản hóa pipeline.
-
-## 25. joy.cpl checklist
-Trước game:
-- controller xuất hiện đúng.
-- LS/RS đúng.
-- LT/RT analog đúng.
-- D-pad đúng.
-- không có controller duplicate ngoài dự kiến.
-
-## 26. Quy trình tìm lỗi nhanh
-Nếu một nút không đúng:
-1. Xác định current layer.
-2. Xác định physical source.
-3. Xem activator.
-4. Xem target.
-5. Nếu target Macro, mở Macro ID.
-6. Test joy.cpl.
-7. Tắt reWASD.
-8. Tắt Steam Input.
-9. Test lại.
-10. Chỉ sau đó mới sửa profile.
-
-## 27. Backup trước khi thử nghiệm
 Trước thay đổi lớn:
-- Export local profile.
-- ghi chú on-board slot đang dùng.
-- tránh Factory Reset trừ khi thật sự cần.
+- Export backup;
+- ghi chú slot;
+- đặt tên profile rõ;
+- kiểm tra slot trước Apply.
 
-Factory Reset có thể xóa:
-- settings.
-- calibration.
-- pairing information.
+## 19. Quick Profile Switching gây nhầm
 
-## 28. Best practice cho Elden Ring profile này
-Giữ logic đơn giản:
-- Main = gameplay bình thường.
-- M2 = Shift 1.
-- M1 = Shift 2.
-- M3 = gyro toggle.
-- M4 = LS.
-- macro chỉ dùng cho combo đã có trong Best.rewasd.
+Nếu bật FN + A/B/X/Y đổi profile:
+- đổi ngoài combat;
+- chờ profile switch xong;
+- test một nút trước khi chơi tiếp.
 
-Không thêm Turbo vào combat mapping nếu không có mục đích cụ thể.
-Không thêm custom curve trước khi migration cơ bản đã pass test.
+## 20. Third-party Control / reWASD conflict
 
-## 29. Khi nào quay lại reWASD
-Quay lại reWASD cho phần thiếu nếu cần:
-- Autodetect theo Elden Ring.exe.
-- Triple Press.
-- Shortcut nhiều nút.
-- Virtual controller.
-- Device grouping.
-- Flick Stick.
-- system/app commands.
+Nếu bật Allow Third-party Control:
+- Space Station có thể pause config operation khi app khác takeover.
 
-Không cần quay lại chỉ vì:
-- M1-M4;
-- 2 Shift layer;
-- macro A+button;
-- gyro toggle;
-- deadzone/curve;
-- trigger zones.
+Nếu dùng reWASD:
+- đừng vừa chỉnh Flydigi vừa remap live ở reWASD nếu không cần;
+- xác định app nào đang sở hữu pipeline.
 
-Space Station hiện đã cover các mục đó.
+![Settings thật](images/15-settings.png)
 
-## 30. Checklist ổn định cuối cùng
-- [ ] Firmware controller ổn.
-- [ ] Profile được backup.
-- [ ] Mapping Main đúng.
-- [ ] Layer Hold đúng.
-- [ ] Macro đúng layer.
-- [ ] Gyro direction đúng.
-- [ ] Deadzone không gây drift.
-- [ ] joy.cpl không double input.
-- [ ] Steam Input đã được kiểm soát.
-- [ ] reWASD chỉ bật nếu thực sự cần.
-- [ ] Game test ít nhất 10-15 phút không lỗi mode switch.
+## 21. Steam Input làm mapping sai
+
+Nếu mapping đúng ngoài Steam nhưng sai trong game:
+1. disable Steam Input tạm;
+2. test lại;
+3. chỉ bật lại nếu game cần.
+
+Steam Input là thêm một lớp mapping khác.
+## 22. joy.cpl nên kiểm tra gì?
+
+Trước game:
+- LS/RS đúng;
+- LT/RT analog đúng;
+- D-pad đúng;
+- không có duplicate controller ngoài dự kiến.
+
+joy.cpl không phải công cụ test hoàn hảo cho mọi M-button, nhưng rất tốt để xác nhận output controller cơ bản.
+
+## 23. Firmware / calibration
+
+Settings hiện cho:
+- Automatic Stick Calibration;
+- Stick Precision;
+- Firmware 7.2.2.1;
+- Component Firmware Versions;
+- Firmware Update.
+
+![Firmware component thật](images/16-firmware-components.png)
+
+Không firmware update khi:
+- pin yếu;
+- kết nối chập chờn;
+- app khác đang takeover.
+
+## 24. Factory Reset
+
+Chỉ dùng cuối cùng.
+
+Có thể xóa:
+- settings;
+- calibration;
+- pairing.
+
+Backup trước.
+
+---
+
+## 25. Flow tìm lỗi nhanh
+
+### Một nút không đúng
+
+1. Current Layer?
+2. Source nào?
+3. Activator gì?
+4. Target gì?
+5. Macro nào?
+6. joy.cpl?
+7. reWASD OFF?
+8. Steam Input OFF?
+9. test lại.
+
+### Camera/gyro sai
+
+1. Mouse hay Right Stick?
+2. Hold hay Toggle?
+3. Invert?
+4. Dead Zone?
+5. Sensitivity?
+6. Curve?
+
+### Game bấm hai lần
+
+1. physical controller;
+2. virtual controller;
+3. Steam Input;
+4. device group;
+5. hide/exclusive access.
+
+---
+
+## 26. Checklist ổn định cuối
+
+- [ ] đúng firmware;
+- [ ] có backup;
+- [ ] Main mapping đúng;
+- [ ] Layer dùng đúng Hold/Toggle;
+- [ ] Macro đúng layer;
+- [ ] Gyro không drift;
+- [ ] Dead Zone vừa đủ;
+- [ ] joy.cpl không double input;
+- [ ] Steam Input được kiểm soát;
+- [ ] reWASD chỉ bật khi có lý do rõ;
+- [ ] game test thực tế trước khi coi config hoàn tất.

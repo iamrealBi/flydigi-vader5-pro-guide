@@ -1,131 +1,151 @@
-# Migrate Best.rewasd sang Flydigi Space Station
+# Migrate Best.rewasd sang Flydigi Space Station — bản đã kiểm tra lại
 
-## 1. Profile nguồn
-File: `Best.rewasd`
-Game: Elden Ring
-Process: `eldenring.exe`
-reWASD appVersion: 9.5.0
-Virtual output: Xbox 360
+## Mục tiêu
 
-Profile dùng:
-- Main layer.
-- Shift 1.
-- Shift 2.
-- Gyro -> Mouse.
-- Một command Toggle Gyro.
+Tái tạo **logic gameplay cốt lõi** của Best.rewasd trên VADER 5 Pro bằng Space Station.
 
-Không có logic nào trong file này cần hơn 3 Shift Layer.
-Vì vậy Space Station đủ capacity để tái tạo cấu trúc hiện tại.
+Profile nguồn:
+- game: Elden Ring;
+- process: eldenring.exe;
+- reWASD: 9.5.0;
+- output nguồn: Virtual Xbox 360;
+- có Main Layer + 2 Shift Layer;
+- gyro → mouse;
+- M3 dùng để Toggle gyro.
 
-## 2. Mapping Main Layer - chính xác từ file
+Nếu chưa quen Direct / Hold / Toggle / Macro, đọc [Từ điển thuật ngữ](glossary.md) trước.
 
-| Nút Flydigi | reWASD output | Space Station tương đương |
+---
+
+## 1. Trạng thái xác minh từng mapping
+
+| Source trong Best.rewasd | Output | Trạng thái khi chuyển sang Space Station |
 |---|---|---|
-| Home | Keyboard HOME | Keyboard -> Home |
-| Pair/Capture | X | Controller -> X |
-| Back | B | Controller -> B |
-| M4 | LS/L3 | Controller -> LS |
-| M3 | Toggle gyro | Motion Control activation -> M3 -> Toggle |
-| M2 | Hold Shift 1 | Layer -> Shift Layer 1 -> Hold |
-| M1 | Hold Shift 2 | Layer -> Shift Layer 2 -> Hold |
+| M4 | LS/L3 | ✅ Đã xác minh trên UI, hiện có mapping M4 → LS |
+| M2 | Hold Shift 1 | ✅ Space Station có Layer + Hold |
+| M1 | Hold Shift 2 | ✅ Space Station có Layer + Hold |
+| M3 | Toggle gyro | ✅ Motion Control có Toggle; activation cần gán M3 |
+| A/B/X/Y trong Shift 1 | D-pad | ✅ Khả thi |
+| LB/RB trong Shift 1 | A + LB/RB | ✅ Macro Hold phù hợp |
+| A/B/X/Y trong Shift 2 | A + D-pad | ✅ Macro Hold phù hợp |
+| Home | Keyboard Home | ⚠️ Source Home không hiện trên visual Button Mapping đang kiểm tra |
+| Pair/Capture | X | ⚠️ Source Pair/Capture không hiện trên visual Button Mapping hiện tại |
+| Back | B | ⚠️ Source Back không hiện trên visual Button Mapping hiện tại |
 
-Gyro:
-- Gyro Up -> Mouse Down.
-- Gyro Down -> Mouse Up.
-- Gyro Left -> Mouse Left.
-- Gyro Right -> Mouse Right.
+Điểm quan trọng:
 
-Suy ra:
-- Horizontal không đảo.
-- Vertical đảo.
+> “Có trong Best.rewasd” không tự động nghĩa là “source đó được Space Station UI hiện tại cho chọn”.
 
-## 3. Tạo layer
-Trong Advanced:
-1. Mở menu Main Layer.
-2. Create Shift Layer.
-3. Tạo Shift Layer 1.
-4. Create Shift Layer lần nữa.
-5. Tạo Shift Layer 2.
+Do đó migration chính xác nhất hiện nay là **migrate gameplay core trước**, còn Home/Pair/Back phải kiểm tra lại nếu UI/firmware sau này expose.
 
-Không cần Shift Layer 3.
+---
 
-#
+## 2. Chuẩn bị trước khi sửa
 
-## M2
-Main Layer:
-1. Chọn M2.
-2. Add Trigger.
-3. Direct.
-4. Target Layer.
-5. Shift Layer 1.
+1. Chọn đúng on-board slot.
+2. Export backup.
+3. Chọn **Advanced**.
+4. Tạm tắt reWASD remap khi test.
+5. Tạm tắt Steam Input nếu đang debug double input.
+
+![Màn hình cấu hình Advanced](images/02-button-mapping-overview.png)
+## 3. Tạo hai Shift Layer
+
+Bấm **Main Layer** → Create Shift Layer hai lần.
+
+![Menu Layer thật](images/03-layer-menu.png)
+
+Cần:
+- Main Layer;
+- Shift Layer 1;
+- Shift Layer 2.
+
+Không cần layer thứ ba.
+
+### M2 → Shift Layer 1
+
+Trong Main:
+1. chọn M2;
+2. Add Trigger;
+3. chọn kiểu phù hợp để giữ;
+4. Target = Layer;
+5. chọn Shift Layer 1;
 6. Activation Mode = Hold.
 
-Mục tiêu:
-- Giữ M2 -> Shift 1.
-- Thả M2 -> Main.
+Hành vi mong muốn:
+- giữ M2 → vào Shift 1;
+- thả M2 → về Main.
 
-#
+### M1 → Shift Layer 2
 
-## M1
 Làm tương tự:
-- M1 -> Shift Layer 2 -> Hold.
+- giữ M1 → Shift 2;
+- thả → Main.
 
-Không cần macro riêng để quay về Main; Hold layer tự quay lại khi release.
+**Không dùng Toggle** nếu bạn muốn thả nút là tự quay về.
 
-## 4. Main Layer button mapping
-Home:
-- Direct -> Keyboard -> Home.
+---
 
-Pair/Capture:
-- Direct -> Controller -> X.
+## 4. M4 → LS
 
-Back:
-- Direct -> Controller -> B.
+Đây là mapping đã thấy trực tiếp trên UI.
 
-M4:
-- Direct -> Controller -> LS.
+![M4 đang map sang LS](images/04-button-mapping-m4.png)
 
-## 5. Gyro tương đương Best.rewasd
-Mở Motion Control ở Main Layer.
+Cấu hình:
+- Source = M4;
+- Activator = Direct;
+- Target = Controller;
+- Output = LS.
 
-Thiết lập:
-- Motion Control Mode = Mouse.
-- Activation Mode = Toggle.
-- Primary Activation Button = M3.
-- Secondary = để trống.
-- Invert Horizontal X = Off.
-- Invert Vertical Y = On.
-- Mouse Dead Zone = bắt đầu 0%.
-- Response Curve = Linear.
+Direct ở đây nghĩa là:
+- giữ M4 → LS bị giữ;
+- thả M4 → LS nhả.
 
-#
+---
 
-## Sensitivity
-Best.rewasd ghi:
-- sensitivity = 1.
-- sensitivityY = 1.
-- smoothing = 1.
+## 5. Gyro → Mouse và M3 Toggle
 
-Không thể đổi trực tiếp các giá trị này sang % của Space Station.
-Hai app dùng thang và pipeline khác nhau.
+Mở **Motion Control**.
 
-Điểm bắt đầu hợp lý:
-- Space Station sensitivity: giữ mức hiện tại 20% để test.
-- Deadzone 0%.
-- Curve Linear.
+![Motion Control Basic](images/10-motion-basic.png)
 
-Sau đó tune theo game.
-Nếu drift khi controller nằm yên:
-- tăng Dead Zone lên 1-2%.
+Thiết lập mục tiêu:
+- Mode = Mouse;
+- Activation Mode = Toggle;
+- Primary Activation Button = M3;
+- Secondary = trống;
+- Invert X = Off;
+- Invert Y = On;
+- Dead Zone = bắt đầu 0%;
+- Curve = Linear.
 
-Nếu aim quá chậm:
-- tăng sensitivity trước khi sửa curve.
+### Vì sao Invert Y = On?
 
-Nếu fine aim ổn nhưng quay nhanh quá chậm:
-- dùng midpoint để tăng gain ở vùng motion cao.
+Best.rewasd nguồn có:
+- gyro up → mouse down;
+- gyro down → mouse up.
 
+Do đó để giữ hành vi cũ, trục dọc cần đảo.
+
+### Sensitivity
+
+Không đổi reWASD sensitivity = 1 thành một phần trăm cố định.
+
+Điểm bắt đầu:
+- giữ mức Space Station hiện tại;
+- test trong game;
+- chỉnh Sensitivity trước;
+- sau đó mới chỉnh Curve.
+
+Nếu controller nằm yên mà camera trôi:
+- thử Dead Zone 1%;
+- nếu còn, thử 2%.
+
+![Motion Control Advanced](images/11-motion-advanced.png)
 ## 6. Shift Layer 1
-Best.rewasd mapping:
+
+Best.rewasd cần:
 
 | Source | Output |
 |---|---|
@@ -136,46 +156,43 @@ Best.rewasd mapping:
 | LB | A + LB |
 | RB | A + RB |
 
-#
+### A/B/X/Y
 
-## A/B/X/Y
 Trong Shift Layer 1:
-- A -> Direct -> Controller -> D-pad Down.
-- B -> Direct -> Controller -> D-pad Right.
-- X -> Direct -> Controller -> D-pad Left.
-- Y -> Direct -> Controller -> D-pad Up.
+- A → D-pad Down;
+- B → D-pad Right;
+- X → D-pad Left;
+- Y → D-pad Up.
 
-#
+Dùng Direct vì muốn output tồn tại trong lúc giữ source.
 
-## Macro A + LB
-Manage Macros trong Shift Layer 1:
-1. New Macro.
-2. Trigger Mode = Key Combination (Hold).
-3. Add Controller A.
-4. Add Controller LB.
-5. Save.
+### LB → A + LB
+
+Tạo Macro trong Shift Layer 1:
+- Trigger Mode = Key Combination (Hold);
+- target 1 = A;
+- target 2 = LB.
 
 Sau đó:
-- Chọn LB trong Shift Layer 1.
-- Direct -> Macro -> macro A+LB.
+- LB → Macro vừa tạo.
 
-Hành vi cần đạt:
-- Giữ LB -> A và LB cùng được giữ.
-- Thả LB -> cả hai release.
+### RB → A + RB
 
-### Macro A + RB
-Tạo macro thứ hai:
-1. Trigger Mode = Key Combination (Hold).
-2. Controller A.
-3. Controller RB.
+Tạo macro tương tự:
+- A;
+- RB.
 
-Mapping:
-- RB -> Direct -> Macro A+RB.
+![Macro Editor](images/19-macro-editor.png)
 
-Shift Layer 1 chỉ cần hai macro này.
+Key Combination (Hold) phù hợp vì:
+- giữ LB/RB source → combo cùng được giữ;
+- thả source → cả hai target được nhả.
+
+---
 
 ## 7. Shift Layer 2
-Best.rewasd mapping:
+
+Best.rewasd cần:
 
 | Source | Output |
 |---|---|
@@ -184,108 +201,130 @@ Best.rewasd mapping:
 | X | A + D-pad Left |
 | Y | A + D-pad Up |
 
-Tạo bốn macro trong Shift Layer 2.
+Tạo 4 macro kiểu **Key Combination (Hold)**:
+1. A + D-pad Down;
+2. A + D-pad Right;
+3. A + D-pad Left;
+4. A + D-pad Up.
 
-Macro 1:
-- Key Combination (Hold).
-- A.
-- D-pad Down.
-
-Macro 2:
-- Key Combination (Hold).
-- A.
-- D-pad Right.
-
-Macro 3:
-- Key Combination (Hold).
-- A.
-- D-pad Left.
-
-Macro 4:
-- Key Combination (Hold).
-- A.
-- D-pad Up.Mapping Shift Layer 2:
-- A -> Direct -> Macro A+D-pad Down.
-- B -> Direct -> Macro A+D-pad Right.
-- X -> Direct -> Macro A+D-pad Left.
-- Y -> Direct -> Macro A+D-pad Up.
+Sau đó map:
+- source A → macro 1;
+- B → macro 2;
+- X → macro 3;
+- Y → macro 4.
 
 Lưu ý:
-Macro phải chứa A ở output.
-Không dựa vào native A/B/X/Y vì mapping source đã được thay bằng macro target.
+- output A phải nằm bên trong macro;
+- không trông chờ native A tiếp tục chạy sau khi source đã được remap.
+## 8. Home / Pair-Capture / Back — xử lý thế nào?
 
-## 8. Virtual Xbox 360 trong Best.rewasd
-Best.rewasd dùng:
-- virtual gamepad type = 360.
+Bản cũ từng hướng dẫn:
+- Home → Keyboard Home;
+- Pair/Capture → X;
+- Back → B.
 
-Đây là output layer của reWASD.
-Không có mục cần copy 1:1 sang Space Station.
+Sau khi rà UI thật, ba source này **không xuất hiện trên visual Button Mapping hiện tại**.
 
-Trong Space Station:
-- giữ controller ở PC/XInput mode bạn đang dùng bình thường.
-- test bằng joy.cpl.
-- xác nhận game chỉ thấy một controller.
+Vì vậy không nên bảo người đọc “bấm Home trên hình controller” khi UI không có.
 
-Chỉ dùng reWASD Virtual Xbox 360 lại nếu:
-- game có compatibility problem với output native;
-- hoặc bạn cần workflow đặc thù của reWASD.
+Cách xử lý thực tế:
+1. ưu tiên hoàn tất phần gameplay core trước;
+2. kiểm tra firmware/UI mới nếu sau này các system button được expose;
+3. nếu ba mapping này thật sự cần, có thể giữ reWASD chỉ cho phần Windows-level đó.
 
-## 9. Thứ tự test
-Test Main trước:
+Đây là một trường hợp dùng hybrid hợp lý:
+- Space Station = gameplay/hardware;
+- reWASD = system button chưa được Space Station expose.
+
+---
+
+## 9. Virtual Xbox 360 trong Best.rewasd
+
+Best.rewasd tạo Virtual Xbox 360.
+
+Space Station không cần “copy” mục này.
+
+Khi test bản Flydigi:
+1. tắt reWASD remap;
+2. giữ Vader ở mode PC/XInput phù hợp;
+3. mở joy.cpl;
+4. đảm bảo chỉ input mong muốn phản hồi;
+5. mở Elden Ring.
+
+Chỉ bật lại virtual controller nếu bạn xác định rõ game cần nó.
+
+---
+
+## 10. Thứ tự test
+
+### Main Layer
+
 1. A/B/X/Y native.
-2. Pair -> X.
-3. Back -> B.
-4. M4 -> LS.
-5. Home -> Home key.
+2. M4 → LS.
+3. M1/M2 chưa giữ → nút bình thường.
+4. test LT/RT/stick.
 
-Sau đó M2:
+### Shift Layer 1
+
 1. giữ M2;
-2. A/B/X/Y phải ra D-pad;
-3. LB/RB phải ra combo;
+2. A/B/X/Y phải thành D-pad;
+3. LB/RB phải phát combo;
 4. thả M2;
-5. A/B/X/Y trở về native.Test M1:
+5. A/B/X/Y trở về Main.
+
+### Shift Layer 2
+
 1. giữ M1;
-2. A/B/X/Y phải ra A + D-pad tương ứng;
+2. A/B/X/Y phải phát A + D-pad;
 3. thả M1;
-4. mapping trở về Main.
+4. trở về Main.
 
-Test gyro:
-1. M3 một lần -> gyro ON.
-2. nghiêng trái -> mouse left.
-3. nghiêng phải -> mouse right.
-4. nghiêng lên -> mouse down theo profile nguồn.
-5. nghiêng xuống -> mouse up.
-6. M3 lần nữa -> gyro OFF.
+### Gyro
 
-## 10. Checklist trước Apply
-- [ ] Main Layer có Home/Pair/Back/M4.
+1. bấm M3 → gyro ON;
+2. xoay trái/phải kiểm tra X;
+3. ngẩng/hạ kiểm tra Y;
+4. bấm M3 lần nữa → OFF.
+## 11. Checklist trước Apply
+
+- [ ] Đúng on-board slot.
+- [ ] Có backup.
+- [ ] M4 = Direct → LS.
 - [ ] M2 = Hold Shift 1.
 - [ ] M1 = Hold Shift 2.
-- [ ] Gyro Mouse + Toggle M3.
-- [ ] Vertical inversion ON.
-- [ ] Horizontal inversion OFF.
 - [ ] Shift 1 A/B/X/Y đúng D-pad.
-- [ ] Shift 1 LB macro A+LB.
-- [ ] Shift 1 RB macro A+RB.
-- [ ] Shift 2 có đủ 4 macro A+D-pad.
-- [ ] Không có mapping thừa trên M3.
-- [ ] Apply đúng on-board profile mong muốn.
+- [ ] Shift 1 LB/RB đúng macro A + shoulder.
+- [ ] Shift 2 đủ 4 macro.
+- [ ] Gyro = Mouse.
+- [ ] Gyro = Toggle.
+- [ ] M3 là activation button.
+- [ ] Invert Y ON nếu muốn giữ đúng Best.rewasd.
+- [ ] joy.cpl không double input.
+- [ ] Home/Pair/Back chưa được coi là đã migrate nếu UI chưa expose.
 
-## 11. Khác biệt không thể copy số học trực tiếp
-Không copy 1:1:
-- Gyro sensitivity.
-- Gyro smoothing.
-- Response curve.
+## 12. Cái gì copy logic được và cái gì không?
 
-Copy được 1:1 về logic:
-- button mapping.
-- layer entry/exit.
-- macro combo.
-- gyro direction.
-- gyro toggle button.
+### Copy logic tốt
+- M-button mapping;
+- layer Hold;
+- macro combo;
+- gyro direction;
+- gyro Toggle.
 
-## 12. Mục tiêu cuối
-Khi migration hoàn tất, có thể tắt reWASD và profile vẫn giữ logic gameplay cốt lõi trên Vader 5 Pro.
-Nếu một chức năng không hoạt động sau khi tắt reWASD, dùng checklist để xác định nó thuộc:
-- on-board Flydigi;
-- hay Windows-level behavior của reWASD.
+### Không copy số học 1:1
+- gyro sensitivity;
+- smoothing;
+- response curve;
+- timing cảm giác giữa hai app.
+
+### Chưa xác minh 1:1
+- Home/Pair/Back source;
+- virtual controller pipeline;
+- system-level behavior.
+
+## Kết quả mong muốn
+
+Sau migration core:
+- Elden Ring vẫn có layer/macro/gyro chính;
+- reWASD không còn bắt buộc cho gameplay core;
+- nếu cần, reWASD chỉ xử lý phần Windows-level chưa được Flydigi expose.

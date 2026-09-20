@@ -1,264 +1,242 @@
-# Flydigi Space Station vs reWASD 9.5.0
+# Flydigi Space Station vs reWASD 9.5.0 — nên dùng cái nào?
 
-## Bối cảnh
+## Phạm vi so sánh
+
 So sánh này áp dụng cho:
-- Flydigi Vader 5 Pro.
-- Space Station web UI hiện đang kết nối trực tiếp controller.
-- reWASD 9.5.0, bản hiện hành ngày 2026-09-21.
+- Flydigi VADER 5 Pro;
+- Space Station UI đang được kiểm tra trực tiếp;
+- reWASD 9.5.0.
 
-reWASD 9.4.0 thêm hỗ trợ chính thức Vader 5 Pro.
-reWASD 9.5.0 sửa lỗi M1/M2 và M3/M4 trên Vader 5 Pro/Apex 5.
+Theo release notes chính thức:
+- reWASD 9.4.0 thêm hỗ trợ chính thức cho Vader 5 Pro;
+- reWASD 9.5.0 phát hành ngày 13/08/2026;
+- 9.5 sửa lỗi nhận nhầm M1/M2 và M3/M4 trên Vader 5 Pro/Apex 5.
+
+Nếu thuật ngữ như Virtual Controller, Shift Layer, Mixed Input khó hiểu, xem [Từ điển thuật ngữ](glossary.md).
+
+---
+
+## Khác biệt nền tảng
+
+### Space Station
+
+Space Station là công cụ “gần phần cứng” hơn.
+
+Mạnh ở:
+- on-board profile;
+- M1–M4, LM/RM;
+- stick/trigger tuning;
+- gyro;
+- vibration;
+- lighting;
+- calibration;
+- firmware.
+
+### reWASD
+
+reWASD là remapping framework cấp Windows.
+
+Mạnh ở:
+- virtual controller;
+- profile tự đổi theo process/game;
+- group nhiều thiết bị;
+- shortcut;
+- nhiều lớp Shift;
+- workflow keyboard/mouse/controller;
+- Flick Stick;
+- các logic hệ điều hành.
+
+---
 
 ## Bảng capability
 
-| Hạng mục | Flydigi Space Station | reWASD 9.5 |
+| Khả năng | Space Station Vader 5 Pro | reWASD 9.5 |
 |---|---|---|
-| On-board profile | Rất mạnh, ghi trực tiếp vào 4 slot | Không phải thế mạnh chính với Vader |
-| Local profile library | Có | Có Profile/Config |
-| Auto theo EXE | Không thấy trong mapping profile thường | Có Autodetect |
-| Virtual controller | Không phải mục tiêu chính | Xbox 360/One, DS3/DS4, Switch Pro |
-| Group nhiều device | Không | Có keyboard/mouse/controller group |
-| Shift layer | Main + tối đa 3 Shift | Tới 10 Shift overlays theo Help hiện hành |
-| Hold/Toggle layer | Có | Có, thêm Custom |
-| Single/Double/Long | Có | Có |
-| Triple Press | Không thấy | Có |
-| Press/Release action | Press Pulse/Release Pulse | Start Press/Release Press |
-| Multi-button Shortcut | Không thấy như hệ thống shortcut riêng | Có |
-| Controller target | Có | Có |
-| Keyboard/Mouse target | Có | Có |
-| Media target | Có | Có |
-| Turbo | Có | Có Rapid Fire Turbo |
-| Toggle mapping | Có | Có Rapid Fire Toggle |
-| Macro | Có, 10/layer | Có Combo/Key Combo |
-| Stick curve | Có | Có |
-| Stick zones | Rất mạnh, 4/8-way segments | Low/Medium/High zones + directions |
-| Trigger zones | 3 zone Light/Medium/Heavy | Low/Medium/High zones |
-| Gyro -> Mouse | Có | Có |
-| Gyro -> Stick | Có | Có |
-| Flick Stick | Không thấy | Có |
-| Haptics native Flydigi | Rất mạnh | Giới hạn hơn |
-| X-Haptics | Audio/Adaptive/UDP | Không tương đương Flydigi-native |
-| Lighting | Native | Có một số LED customization |
-| Firmware/calibration | Native đầy đủ | Không thay thế firmware utility Flydigi |
-## Điểm Space Station thắng rõ ràng
+| On-board profile | ✅ Native | Không phải trọng tâm |
+| 4 profile slot trên controller | ✅ | Không quản lý như Flydigi slot |
+| M1–M4 / LM / RM | ✅ Native | ✅ Hỗ trợ |
+| Shift Layer | ✅ Main + tối đa 3 Shift | ✅ Nhiều Shift hơn |
+| Hold / Toggle layer | ✅ | ✅ |
+| Single / Double / Long | ✅ | ✅ |
+| Triple Press | Không thấy trên UI | ✅ |
+| Press / Release Pulse | ✅ | Có cách mapping tương đương khác |
+| Multi-button Shortcut | Hạn chế hơn | ✅ Mạnh |
+| Macro | ✅ | ✅ |
+| Turbo / Rapid Fire | ✅ | ✅ |
+| Stick curve | ✅ | ✅ |
+| Stick zone | ✅ | ✅ |
+| Trigger curve / zone | ✅ | ✅ |
+| Gyro → Mouse | ✅ | ✅ |
+| Gyro → Stick | ✅ | ✅ |
+| Flick Stick | Không thấy | ✅ |
+| Virtual Xbox/DS/ Switch | Không phải chức năng chính | ✅ |
+| Group keyboard + mouse + controller | Không | ✅ |
+| Auto đổi config theo EXE | Không thấy | ✅ Autodetect |
+| Vibration native | ✅ | Có routing/tuning tùy output |
+| Lighting | ✅ | Không phải trọng tâm |
+| Firmware/calibration | ✅ | Không |
+## Khi nào Space Station tốt hơn?
 
-#
+Dùng Space Station làm chính nếu:
+- chỉ dùng Vader 5 Pro;
+- muốn controller tự mang profile;
+- muốn M-button ổn định;
+- muốn chỉnh stick/trigger/gyro;
+- muốn ít lớp phần mềm nhất.
 
-## 1. Hardware-native
-Space Station hiểu trực tiếp:
-- M1/M2/M3/M4.
-- LM/RM.
-- Stick precision.
-- Controller calibration.
-- Trigger feedback.
-- Lighting.
-- Firmware.
+Lợi ích lớn nhất:
+> game nhận controller gần với native hơn, giảm nguy cơ double input.
 
-Điều này giảm số lớp phần mềm giữa controller và game.
+## Khi nào reWASD tốt hơn?
 
-#
+Giữ reWASD nếu bạn cần:
+- profile tự đổi khi mở từng game;
+- virtual Xbox 360 / Xbox One / DS4 / Switch Pro;
+- keyboard + mouse + controller thành một group;
+- Triple Press;
+- Shortcut nhiều nút;
+- Flick Stick;
+- desktop/system workflow;
+- logic phức tạp vượt on-board Flydigi.
 
-## 2. On-board portability
-Sau khi apply xuống controller:
-- Profile nằm trong tay cầm.
-- Có thể chuyển bằng FN + A/B/X/Y.
-- Không cần reWASD profile để các mapping on-board hoạt động.
+## “Virtual Controller” nghĩa là gì?
 
-Đây là ưu thế lớn nếu:
-- chơi nhiều máy;
-- dùng Steam Big Picture;
-- remote gaming;
-- không muốn background remapper.
+reWASD có thể tạo một controller ảo mà Windows/game nhìn thấy như thiết bị riêng.
 
-#
+Ví dụ:
+- controller vật lý = Vader;
+- reWASD tạo Virtual Xbox 360;
+- game có thể thấy Xbox 360 ảo.
 
-## 3. Trigger và haptics
-Space Station có:
-- custom trigger curve;
-- 3 travel zones;
-- trigger scenes;
-- grip feedback;
-- X-Haptics audio;
-- adaptive trigger;
-- UDP telemetry.
+Nếu game thấy cả vật lý + ảo cùng lúc, có thể xảy ra **double input**.
 
-reWASD không thay thế được toàn bộ lớp haptic/firmware-native này.
+## Group of Devices là gì?
 
-## Điểm reWASD thắng rõ ràng
+reWASD cho phép nhóm 2–4 thiết bị.
 
-#
-
-## 1. Windows-level automation
-Autodetect gắn profile với một hoặc nhiều EXE.
-Khi app được focus, reWASD có thể tự apply config.
-Tính năng này cần Background Agent.
-
-Space Station on-board profile không có logic focus-EXE tương đương trong UI hiện tại.
-
-#
-
-## 2. Virtual controller
-reWASD có thể emulate:
-- Xbox 360.
-- Xbox One.
-- DualShock 3.
-- DualShock 4.
-- Nintendo Switch Pro.
-
-Điều này hữu ích khi game chỉ hỗ trợ một loại controller hoặc cần virtual DS4 gyro.
-
-#
-
-## 3. Multi-device
-reWASD có thể group 2-4 thiết bị:
+Ví dụ:
 - keyboard;
 - mouse;
-- controller;
-- nhiều controller.
+- Vader 5 Pro.
 
-Shift layer có thể tác động đồng thời lên cả group.
+Sau đó một Shift Layer có thể thay đổi mapping của cả group.
 
-#
+Đây là thứ Space Station không được thiết kế để thay thế.
 
-## 4. Logic mapping nâng cao
-reWASD có:
-- Triple Press.
-- Shortcut 2/3/4 nút.
-- nhiều Shift overlay hơn.
-- Custom shift exit.
-- Launch App command.
-- Radial Menu.
-- Flick Stick.
-- workflow desktop/system rộng hơn.
-## Activator: khác nhau thực tế
+---
 
-Space Station:
-- Direct.
-- Single Press.
-- Double Press.
-- Long Press.
-- Press Pulse.
-- Release Pulse.
-- Toggle.
+## Gyro: hai phần mềm khác nhau thế nào?
 
-reWASD:
-- Single.
-- Double.
-- Triple.
-- Long.
-- Start Press.
-- Release Press.
-- Toggle/Turbo qua Rapid Fire.
+### Space Station
 
-Nếu cấu hình chỉ cần Single/Double/Long/Toggle:
-- Space Station đã đủ.
+Ưu điểm:
+- cấu hình trực tiếp cho Vader;
+- Mouse / Left Stick / Right Stick;
+- Hold / Toggle;
+- curve;
+- activation buttons.
 
-Nếu cần Triple hoặc Shortcut phức tạp:
+### reWASD
+
+Ưu điểm:
+- hệ sinh thái virtual controller;
+- Flick Stick;
+- virtual gyro scenario;
+- nhiều workflow kết hợp với mouse/controller.
+
+Không copy số Sensitivity giữa hai app theo tỷ lệ 1:1.
+
+---
+
+## Layer: 3 Shift có đủ không?
+
+Với profile Best.rewasd hiện tại:
+- chỉ cần 2 Shift Layer;
+- Space Station đủ.
+
+Nếu config tương lai cần nhiều trạng thái phức tạp:
 - reWASD linh hoạt hơn.
 
-## Layer
-Space Station:
-- Main + 3 Shift.
-- Hold/Toggle.
-- layer chứa riêng mapping, stick zone, trigger zone, macro.
+---
 
-reWASD:
-- nhiều overlay hơn;
-- Hold/Toggle/Custom;
-- layer có inheritance controls chi tiết hơn.
+## Trigger Haptics: lưu ý đặc biệt
 
-Best.rewasd của bạn chỉ dùng 2 Shift.
-Vì vậy Space Station đủ capacity để migrate toàn bộ logic layer hiện tại.
-## Macro
-Space Station phù hợp:
-- combo controller;
-- sequence;
-- loop;
-- hold-combination;
-- analog stick/trigger;
-- macro theo layer;
-- chạy on-board theo capability controller.
+Bản guide cũ từng liệt kê Trigger Haptics như chức năng thực tế của Vader 5 Pro.
 
-reWASD phù hợp:
-- combo hệ thống rộng hơn;
-- phối hợp keyboard/mouse/controller;
-- workflow cùng Autodetect;
-- device grouping.
+Sau khi kiểm tra UI thật:
+- tab Trigger chỉ thấy Regular Response / Curve / Travel Zones;
+- không thấy menu Pistol/Rifle/Shotgun/Sword.
 
-Với Best.rewasd hiện tại, macro đều đơn giản:
-- A + LB.
-- A + RB.
-- A + D-pad direction.
-Space Station xử lý được trực tiếp.
+Do đó phần này hiện được đánh dấu **🧪 code-only / chưa expose**.
 
-## Gyro
-Best.rewasd hiện:
-- gyro -> mouse;
-- horizontal bình thường;
-- vertical đảo;
-- M3 toggle gyro.
+Đây là ví dụ vì sao guide mới luôn phân biệt:
+- capability có trong code;
+- capability đã thấy trên UI thật.
+## Kiến trúc khuyến nghị nếu chỉ chơi bằng Vader 5 Pro
 
-Space Station hỗ trợ đúng mô hình:
-- Mouse target.
-- Toggle activation.
-- Primary button M3.
-- Invert Vertical Y.
+1. Space Station xử lý phần hardware-native.
+2. Apply profile xuống controller.
+3. Tắt reWASD remap.
+4. Tắt Steam Input tạm để test.
+5. kiểm tra joy.cpl.
+6. mở game.
+7. chỉ thêm reWASD khi bạn xác định rõ thiếu capability nào.
 
-Khác biệt:
-- sensitivity scale không tương đương 1:1;
-- reWASD có thêm Flick Stick và nhiều virtual-output scenario.
+## Nếu bắt buộc dùng cả hai
 
-## Độ phụ thuộc phần mềm
-Space Station on-board:
-- phù hợp để chạy controller-native sau khi apply.
+Cấu trúc sạch:
 
-reWASD:
-- các virtual mapping/autodetect phụ thuộc driver/background software.
-- tài liệu reWASD khuyến nghị hide physical controller khi virtual output để tránh input trùng trong nhiều scenario.
-## Nên dùng cái nào cho bạn?
+**Flydigi**
+- M-button;
+- stick;
+- trigger;
+- gyro nếu không cần workflow reWASD;
+- calibration.
 
-#
+**reWASD**
+- virtual controller;
+- Autodetect;
+- device group;
+- shortcut/logic Windows.
 
-## Vader 5 Pro + Elden Ring
-Khuyến nghị:
-1. Space Station làm primary.
-2. Migrate Best.rewasd vào on-board profile.
-3. Test game không có reWASD trước.
-4. Chỉ bật reWASD nếu thiếu một capability thật sự cần thiết.
+Tránh mapping cùng một nút ở cả hai nơi theo hai ý nghĩa khác nhau.
 
-Lý do:
-- Best.rewasd chỉ dùng 2 layer, Space Station đủ.
-- Các macro hiện tại đều tái tạo được.
-- Gyro toggle tái tạo được.
-- M4 -> LS tái tạo được.
-- Keyboard Home tái tạo được.
-- Controller-specific tuning tốt hơn trong Space Station.
+Ví dụ xấu:
+- M1 là Shift 1 trong Flydigi;
+- đồng thời M1 là Shift 2 trong reWASD.
 
-#
+Khi lỗi, bạn gần như không biết layer nào gây ra.
 
-## Khi vẫn nên dùng reWASD
-Giữ reWASD nếu bạn cần:
-- profile tự đổi theo từng game;
-- virtual DS4/Xbox/Switch;
-- keyboard + mouse + controller group;
-- Triple Press;
-- multi-button Shortcut;
-- Flick Stick;
-- app launch / desktop workflows.
+---
 
-#
+## Với Elden Ring + Best.rewasd của bộ tài liệu này
 
-## Khi kết hợp cả hai
-Cấu trúc sạch nhất:
-- Space Station: hardware-native.
-- reWASD: Windows-level logic chưa có trong Flydigi.
+Space Station tái tạo được phần gameplay chính:
+- M4 → LS;
+- M2 → Hold Shift Layer 1;
+- M1 → Hold Shift Layer 2;
+- A/B/X/Y mapping theo layer;
+- combo A + LB/RB;
+- gyro → mouse;
+- Toggle gyro.
 
-Tránh:
-- M1 vừa là Shift trong Flydigi vừa là Shift khác trong reWASD.
-- M3 vừa toggle gyro ở Flydigi vừa có macro reWASD.
-- tạo virtual Xbox nếu không có lý do rõ ràng.
-- để physical + virtual controller cùng phát input vào game nếu game dễ bị double input.
+Điểm chưa nên khẳng định 1:1:
+- sensitivity số học;
+- smoothing số học;
+- system-level behavior;
+- virtual Xbox pipeline.
 
-## Kết luận
-Với profile hiện tại của bạn, Space Station đã đủ khả năng thay reWASD cho phần gameplay cốt lõi.
-reWASD vẫn mạnh hơn như một remapping framework cấp Windows, nhưng không còn bắt buộc chỉ để khai thác đầy đủ Vader 5 Pro.
+Đọc [Migration Guide](migration.md) để làm từng bước.
+
+---
+
+## Nguồn reWASD chính thức
+
+- Release 9.5.0: https://www.rewasd.com/releases/release-9.5.0
+- Release history: https://www.rewasd.com/releases
+- Vader 5 Pro support từ 9.4: https://www.rewasd.com/releases/release-9.4.0
+- Group of Devices: https://www.help.rewasd.com/how-to-remap/group-of-devices.html
+- Gyroscope: https://www.help.rewasd.com/how-to-remap/gyroscope.html
+- Virtual Controller: https://www.help.rewasd.com/basic-functions/virtual-controller.html
+
+Ngày rà soát: 21/09/2026.

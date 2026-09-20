@@ -46,3 +46,19 @@ body:before{
 .site-card:hover{transform:translateY(-2px);border-color:var(--accent)}
 .site-card b{display:block;color:var(--text);font-size:1.05rem;margin-bottom:4px}.site-card span{color:var(--muted);font-size:.92rem}
 @media(max-width:768px){.site-grid{grid-template-columns:1fr}.markdown-section{padding:18px 20px 60px}.theme-toggle{right:10px;top:10px}.markdown-section table{display:block;overflow-x:auto}}
+
+.markdown-section img{
+  display:block;
+  max-width:100%;
+  height:auto;
+  margin:18px auto 26px;
+  border:1px solid var(--line);
+  border-radius:14px;
+  background:var(--panel);
+  box-shadow:0 12px 34px rgba(0,0,0,.08);
+}
+.markdown-section hr{border:0;border-top:1px solid var(--line);margin:2.2rem 0}
+.markdown-section table code{white-space:nowrap}
+@media(max-width:768px){
+  .markdown-section img{border-radius:10px;margin:14px auto 20px}
+}

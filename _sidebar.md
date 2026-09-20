@@ -1,5 +1,6 @@
 - [🏠 Tổng quan](README.md)
 - [🎮 Hướng dẫn Space Station](guide.md)
+- [📖 Từ điển thuật ngữ](glossary.md)
 - [⚖️ Flydigi vs reWASD](comparison.md)
 - [🔁 Migrate Best.rewasd](migration.md)
 - [🧰 Troubleshooting](troubleshooting.md)
